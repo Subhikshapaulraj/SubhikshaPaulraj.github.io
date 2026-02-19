@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Subhiksha Paulraj — Portfolio.exe</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#b4c3e6;--grid:#a0afd7;--win-bg:#d2daf0;--win-bg2:#e1d2e6;
+  --accent:#dc2864;--accent2:#c83c82;--pink-lt:#f0c8dc;
+  --text:#281440;--white:#ffffff;--shadow:rgba(60,20,80,0.35);
+  --border:#dc2864;--muted:#7a6490;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:36px 36px;
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--text);
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpolygon points='0,0 0,14 4,10 7,16 9,15 6,9 11,9' fill='%23281440' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0,auto;
+  overflow-x:hidden;
+}
+/* taskbar */
+#taskbar{position:fixed;bottom:0;left:0;right:0;height:46px;background:var(--win-bg);border-top:2px solid var(--border);display:flex;align-items:center;gap:5px;padding:0 10px;z-index:1000;box-shadow:0 -3px 12px var(--shadow);}
+.start-btn{background:var(--accent);color:var(--white);border:2px solid var(--text);padding:4px 12px;font-family:'Press Start 2P',monospace;font-size:8px;cursor:pointer;box-shadow:2px 2px 0 var(--text);white-space:nowrap;}
+.start-btn:active{transform:translate(2px,2px);box-shadow:none}
+.taskbar-sep{width:2px;height:30px;background:var(--border);opacity:.3;flex-shrink:0}
+.taskbar-tab{background:var(--win-bg2);border:1px solid var(--border);padding:4px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer;color:var(--text);transition:all .15s;text-decoration:none;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.taskbar-tab:hover,.taskbar-tab.active{background:var(--accent);color:var(--white)}
+.taskbar-clock{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);border-left:1px solid var(--border);padding-left:12px;flex-shrink:0}
+/* start menu */
+#start-menu{position:fixed;bottom:50px;left:10px;background:var(--win-bg);border:2px solid var(--border);box-shadow:4px 4px 0 var(--shadow);width:210px;z-index:2000;display:none;}
+#start-menu.open{display:block}
+.sm-header{background:var(--accent);padding:12px 14px;color:var(--white);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;}
+.sm-header small{font-size:.7rem;opacity:.8;display:block;font-family:'IBM Plex Mono',monospace;font-weight:300}
+.sm-item{display:flex;align-items:center;gap:10px;padding:9px 14px;font-size:13px;cursor:pointer;border-bottom:1px solid rgba(220,40,100,.1);}
+.sm-item:hover{background:var(--accent);color:var(--white)}
+/* pages */
+.page{display:none;min-height:100vh;padding:22px 20px 70px;position:relative;z-index:1}
+.page.active{display:block}
+/* window */
+.win{background:var(--win-bg);border:2px solid var(--border);box-shadow:5px 5px 0 var(--shadow);margin-bottom:20px;position:relative;}
+.win-bar{background:var(--accent);padding:5px 10px;display:flex;align-items:center;justify-content:space-between;user-select:none;}
+.win-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--white);font-weight:600;display:flex;align-items:center;gap:7px;}
+.win-controls{display:flex;gap:4px}
+.win-btn{width:20px;height:18px;background:var(--pink-lt);border:1px solid var(--border);font-size:10px;display:flex;align-items:center;justify-content:center;color:var(--accent);cursor:pointer;font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.win-btn:hover{background:var(--accent);color:var(--white)}
+.win-menu{background:var(--win-bg2);border-bottom:1px solid var(--border);padding:3px 12px;display:flex;gap:18px;}
+.win-menu span{font-size:12px;color:var(--muted);cursor:pointer;padding:2px 4px;}
+.win-menu span:hover{background:var(--accent);color:var(--white)}
+.win-body{padding:22px}
+/* address bar */
+.addr-bar{background:var(--win-bg2);border:1px solid var(--border);padding:6px 12px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent);}
+.addr-bar .blink{display:inline-block;width:7px;height:15px;background:var(--text);animation:blink 1s steps(1) infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+/* hero */
+.hero-big{font-family:'DM Sans',sans-serif;font-size:clamp(4.5rem,12vw,9.5rem);font-weight:700;line-height:.88;letter-spacing:-.03em;color:var(--accent);text-shadow:3px 3px 0 #b01050,6px 6px 0 rgba(40,20,60,.25);}
+.hero-big2{color:var(--text);text-shadow:3px 3px 0 rgba(106,68,128,.4)}
+.hero-sub{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:300;color:var(--muted);margin:10px 0 20px;font-style:italic;}
+/* dialog */
+.dialog{background:var(--win-bg2);border:2px solid var(--border);box-shadow:5px 5px 0 var(--shadow);}
+.dialog-body{padding:18px 22px;display:flex;gap:14px;align-items:flex-start;}
+.dialog-icon{width:40px;height:40px;background:var(--accent);clip-path:polygon(50% 0%,0% 100%,100% 100%);flex-shrink:0;margin-top:4px;position:relative;}
+.dialog-icon::after{content:'!';position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);color:#fff;font-family:'Press Start 2P',monospace;font-size:12px;}
+.dialog-text h3{font-size:.95rem;margin-bottom:5px;font-weight:600}
+.dialog-text p{font-size:.8rem;color:var(--muted);line-height:1.6}
+.dialog-sep{height:1px;background:var(--border);opacity:.25;margin:0 22px}
+.dialog-btns{padding:14px 22px;display:flex;gap:10px}
+.btn{border:2px solid var(--border);padding:7px 20px;font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;box-shadow:3px 3px 0 var(--shadow);transition:all .1s;text-decoration:none;display:inline-block;}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn-p{background:var(--accent);color:var(--white)}
+.btn-p:hover{background:#b01050}
+.btn-s{background:var(--win-bg2);color:var(--accent)}
+.btn-s:hover{background:var(--pink-lt)}
+/* stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);margin-top:18px;}
+.stat-cell{background:var(--win-bg);padding:16px;text-align:center}
+.stat-num{font-family:'DM Sans',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;text-shadow:2px 2px 0 rgba(40,20,60,.2);}
+.stat-lbl{font-size:.68rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.1em}
+/* floating */
+.float-win{position:absolute;background:var(--win-bg);border:2px solid var(--border);box-shadow:4px 4px 0 var(--shadow);font-size:12px;z-index:5;animation:float 4s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* about */
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+.about-card{background:var(--win-bg);padding:22px 18px;transition:background .2s;}
+.about-card:hover{background:var(--pink-lt)}
+.about-icon{font-size:1.8rem;margin-bottom:8px}
+.about-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+.about-desc{font-size:.78rem;color:var(--muted);line-height:1.7}
+/* skills */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+.skill-card{background:var(--win-bg);padding:0}
+.skill-card .win-bar{background:var(--accent2)}
+.skill-body{padding:14px}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.tag{background:var(--pink-lt);border:1px solid var(--border);color:var(--accent);padding:3px 9px;font-size:.7rem;letter-spacing:.04em;cursor:default}
+.tag:hover{background:var(--accent);color:var(--white)}
+.bar-wrap{margin-top:12px}
+.bar-row{margin-bottom:8px}
+.bar-label{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:3px;}
+.bar-track{height:11px;background:var(--win-bg2);border:1px solid var(--border);}
+.bar-fill{height:100%;background:repeating-linear-gradient(90deg,var(--accent) 0,var(--accent) 10px,var(--accent2) 10px,var(--accent2) 12px);width:0;transition:width 1.2s ease}
+/* experience */
+.exp-list{display:flex;flex-direction:column;gap:2px;background:var(--border);}
+.exp-card{background:var(--win-bg)}
+.exp-inner{display:grid;grid-template-columns:190px 1fr}
+.exp-side{background:var(--win-bg2);padding:18px 14px;border-right:1px solid var(--border);}
+.exp-date{font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.exp-co{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:9px}
+.badge{display:inline-block;background:var(--accent);color:var(--white);font-size:.62rem;padding:2px 7px;letter-spacing:.1em;text-transform:uppercase;}
+.badge.r{background:var(--accent2)}.badge.l{background:#7a6490}
+.exp-main{padding:18px 22px}
+.exp-role{font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:12px}
+.exp-pts{list-style:none;display:flex;flex-direction:column;gap:7px}
+.exp-pts li{font-size:.81rem;color:var(--muted);padding-left:16px;position:relative;line-height:1.6}
+.exp-pts li::before{content:'▶';position:absolute;left:0;color:var(--accent);font-size:.58rem;top:4px}
+/* projects */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.proj-card{background:var(--win-bg)}
+.proj-inner{padding:18px 22px}
+.proj-num{font-family:'DM Sans',sans-serif;font-size:4.5rem;font-weight:700;color:rgba(220,40,100,.08);line-height:1;margin-bottom:-6px}
+.proj-title{font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.3}
+.proj-desc{font-size:.8rem;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.tech-tag{background:transparent;border:1px solid var(--border);color:var(--accent);padding:3px 7px;font-size:.67rem;letter-spacing:.06em;display:inline-block;margin:2px}
+/* education */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-bottom:18px;}
+.edu-inner{padding:22px}
+.edu-school{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;font-weight:600}
+.edu-degree{font-family:'DM Sans',sans-serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:8px}
+.edu-period{font-size:.73rem;color:var(--muted)}
+.edu-chip{display:inline-block;margin-top:12px;background:var(--pink-lt);border:1px solid var(--border);color:var(--accent);font-size:.68rem;padding:3px 9px;letter-spacing:.08em;text-transform:uppercase}
+.cert-inner{padding:22px;display:flex;align-items:center;gap:20px}
+.cert-badge-ico{font-size:3rem;flex-shrink:0}
+.cert-name{font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:3px}
+.cert-iss{font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em}
+.cert-dsc{font-size:.76rem;color:var(--muted);margin-top:5px;line-height:1.6}
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.contact-card{background:var(--win-bg);padding:18px 22px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:background .15s;}
+.contact-card:hover{background:var(--accent);color:var(--white)}
+.c-icon{font-size:1.6rem;flex-shrink:0}
+.c-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:3px}
+.contact-card:hover .c-lbl{color:rgba(255,255,255,.7)}
+.c-val{font-size:.82rem;font-weight:600}
+/* scrollbar */
+::-webkit-scrollbar{width:13px}::-webkit-scrollbar-track{background:var(--win-bg2)}::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid var(--win-bg2)}
+/* anim */
+@keyframes slideIn{from{opacity:0;transform:translate(16px,16px)}to{opacity:1;transform:translate(0,0)}}
+.page.active .win{animation:slideIn .28s ease both}
+.page.active .win:nth-child(2){animation-delay:.07s}
+.page.active .win:nth-child(3){animation-delay:.14s}
+/* pixel bg blocks */
+.px-block{position:fixed;pointer-events:none;z-index:0}
+/* responsive */
+@media(max-width:768px){
+  .about-grid,.skills-grid,.proj-grid,.edu-grid,.contact-grid{grid-template-columns:1fr}
+  .exp-inner{grid-template-columns:1fr}
+  .exp-side{border-right:none;border-bottom:1px solid var(--border)}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .hero-big{font-size:clamp(3rem,17vw,6rem)}
+  .float-win{display:none}
+  .taskbar-tab .tl{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Pixel blocks -->
+<script>
+['rgba(220,40,100,.1)','rgba(200,60,130,.09)','rgba(240,200,220,.15)','rgba(180,195,230,.18)'].forEach((c,ci)=>{
+  for(let i=0;i<7;i++){
+    const d=document.createElement('div');
+    const s=[18,36,54][i%3];
+    Object.assign(d.style,{position:'fixed',width:s+'px',height:s+'px',left:Math.random()*98+'vw',top:Math.random()*96+'vh',background:c,pointerEvents:'none',zIndex:'0'});
+    document.body.appendChild(d);
+  }
+});
+</script>
+
+<!-- START MENU -->
+<div id="start-menu">
+  <div class="sm-header">Subhiksha Paulraj<small>Data Scientist</small></div>
+  <div class="sm-item" onclick="sp('hero')">🏠 Home</div>
+  <div class="sm-item" onclick="sp('about')">👤 About</div>
+  <div class="sm-item" onclick="sp('skills')">⚙️ Skills</div>
+  <div class="sm-item" onclick="sp('experience')">💼 Experience</div>
+  <div class="sm-item" onclick="sp('projects')">📁 Projects</div>
+  <div class="sm-item" onclick="sp('education')">🎓 Education</div>
+  <div class="sm-item" onclick="sp('contact')">✉️ Contact</div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <button class="start-btn" onclick="toggleStart()">⊞ START</button>
+  <div class="taskbar-sep"></div>
+  <a class="taskbar-tab active" onclick="sp('hero');return false" href="#">🏠 <span class="tl">Home</span></a>
+  <a class="taskbar-tab" onclick="sp('about');return false" href="#">👤 <span class="tl">About</span></a>
+  <a class="taskbar-tab" onclick="sp('skills');return false" href="#">⚙️ <span class="tl">Skills</span></a>
+  <a class="taskbar-tab" onclick="sp('experience');return false" href="#">💼 <span class="tl">Experience</span></a>
+  <a class="taskbar-tab" onclick="sp('projects');return false" href="#">📁 <span class="tl">Projects</span></a>
+  <a class="taskbar-tab" onclick="sp('education');return false" href="#">🎓 <span class="tl">Education</span></a>
+  <a class="taskbar-tab" onclick="sp('contact');return false" href="#">✉️ <span class="tl">Contact</span></a>
+  <div class="taskbar-clock" id="clk">00:00</div>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<div id="page-hero" class="page active">
+  <div class="float-win" style="right:28px;top:55px;width:195px;">
+    <div class="win-bar" style="padding:4px 8px;"><div class="win-title" style="font-size:11px;">status.exe</div></div>
+    <div style="padding:10px 13px;font-size:12px;">🔴 <strong>Active:</strong> Beats by Dre<br><span style="color:var(--muted);font-size:11px;">Data Analyst Extern</span></div>
+  </div>
+  <div class="float-win" style="right:28px;top:230px;width:195px;animation-delay:1.5s;">
+    <div class="win-bar" style="padding:4px 8px;"><div class="win-title" style="font-size:11px;">cert.exe</div></div>
+    <div style="padding:9px 13px;font-size:11px;color:var(--muted);">🏅 PCEP Certified<br>Python Institute 2025</div>
+  </div>
+
+  <div class="win" style="max-width:820px;margin:0 auto;">
+    <div class="win-bar">
+      <div class="win-title">📄 portfolio.ai @ 100% &nbsp;×</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-menu"><span>File</span><span>Edit</span><span>Object</span><span>Type</span><span>Select</span><span>Effect</span><span>View</span></div>
+    <div class="addr-bar"><span style="color:var(--muted);font-size:11px;">URL:</span>subhikshapaulraj.github.io<span class="blink"></span></div>
+    <div class="win-body">
+      <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">◼ Available for Opportunities</div>
+      <div class="hero-big">Subhiksha</div>
+      <div class="hero-big hero-big2" style="margin-top:-8px;">Paulraj_</div>
+      <div class="hero-sub">Data Scientist · ML Engineer · Physics Enthusiast</div>
+      <div class="dialog">
+        <div class="win-bar" style="background:var(--accent2);">
+          <div class="win-title">⚠ Program</div>
+          <div class="win-controls"><div class="win-btn">×</div></div>
+        </div>
+        <div class="dialog-body">
+          <div class="dialog-icon"></div>
+          <div class="dialog-text">
+            <h3>Are you sure you want to hire this candidate?</h3>
+            <p>B.S. Data Science + Physics · UTA 2027<br>Turning complex datasets into decisions — from physics labs to ML pipelines.</p>
+          </div>
+        </div>
+        <div class="dialog-sep"></div>
+        <div class="dialog-btns">
+          <a href="#" onclick="sp('experience');return false" class="btn btn-p">Yes</a>
+          <a href="#" onclick="sp('projects');return false" class="btn btn-s">Of course</a>
+          <a href="#" onclick="sp('contact');return false" class="btn btn-s">Certainly</a>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-cell"><div class="stat-num">4+</div><div class="stat-lbl">Roles & Internships</div></div>
+        <div class="stat-cell"><div class="stat-num">2</div><div class="stat-lbl">ML Projects</div></div>
+        <div class="stat-cell"><div class="stat-num">2027</div><div class="stat-lbl">Graduating</div></div>
+        <div class="stat-cell"><div class="stat-num">7+</div><div class="stat-lbl">Tools & Languages</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<div id="page-about" class="page">
+  <div class="win">
+    <div class="win-bar">
+      <div class="win-title">👤 about_me.txt</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body">
+      <p style="font-size:.88rem;color:var(--muted);max-width:680px;line-height:1.9;margin-bottom:26px;">Data Science undergraduate with a rare dual background in <strong style="color:var(--accent);">Physics + Data Science</strong>. I build data pipelines, clean and model large datasets, and support analytics and ML workflows using Python, SQL, and Git — and I make sure the data tells a story.</p>
+      <div class="about-grid">
+        <div class="about-card"><div class="about-icon">⚛️</div><div class="about-title">Physics + Data Science</div><div class="about-desc">A dual STEM background means I approach problems with rigorous scientific thinking — not just code.</div></div>
+        <div class="about-card"><div class="about-icon">🔬</div><div class="about-title">Research Experience</div><div class="about-desc">Real accelerator research in a Physics department. I know what it means to validate data at a scientific level.</div></div>
+        <div class="about-card"><div class="about-icon">🌍</div><div class="about-title">Global Perspective</div><div class="about-desc">Educated across India and the USA — bringing cross-cultural adaptability to every team I join.</div></div>
+        <div class="about-card"><div class="about-icon">🤝</div><div class="about-title">Leadership & Community</div><div class="about-desc">As a Resident Assistant, I used data to improve community outcomes — empathy AND analysis.</div></div>
+        <div class="about-card"><div class="about-icon">📖</div><div class="about-title">Storytelling with Data</div><div class="about-desc">Translating raw model outputs into stakeholder-ready insights — not just building models, but explaining them.</div></div>
+        <div class="about-card"><div class="about-icon">🚀</div><div class="about-title">Industry Exposure</div><div class="about-desc">Currently at Beats by Dre — working with real business datasets for a global consumer electronics brand.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SKILLS ═══════ -->
+<div id="page-skills" class="page">
+  <div class="win">
+    <div class="win-bar">
+      <div class="win-title">⚙️ skills.exe</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body" style="padding:0;">
+      <div class="skills-grid">
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">🐍 Programming</div></div><div class="skill-body"><div class="tag-row"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">SQL</span><span class="tag">SAS</span><span class="tag">R</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>Python</span><span>95%</span></div><div class="bar-track"><div class="bar-fill" data-w="95"></div></div></div><div class="bar-row"><div class="bar-label"><span>SQL</span><span>85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div><div class="bar-row"><div class="bar-label"><span>R</span><span>70%</span></div><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div></div></div></div>
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">📦 Python Ecosystem</div></div><div class="skill-body"><div class="tag-row"><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Scikit-learn</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>Pandas / NumPy</span><span>92%</span></div><div class="bar-track"><div class="bar-fill" data-w="92"></div></div></div><div class="bar-row"><div class="bar-label"><span>Scikit-learn</span><span>88%</span></div><div class="bar-track"><div class="bar-fill" data-w="88"></div></div></div></div></div></div>
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">🤖 Machine Learning</div></div><div class="skill-body"><div class="tag-row"><span class="tag">Random Forest</span><span class="tag">Gradient Boosting</span><span class="tag">Classification</span><span class="tag">Regression</span><span class="tag">Feature Eng.</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>Supervised ML</span><span>88%</span></div><div class="bar-track"><div class="bar-fill" data-w="88"></div></div></div><div class="bar-row"><div class="bar-label"><span>Feature Engineering</span><span>85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div></div></div></div>
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">📊 Analytics & Viz</div></div><div class="skill-body"><div class="tag-row"><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">EDA</span><span class="tag">ROC-AUC</span><span class="tag">Confusion Matrix</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>EDA</span><span>90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div><div class="bar-row"><div class="bar-label"><span>Tableau</span><span>80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div></div></div></div>
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">🛠️ Tools & Workflow</div></div><div class="skill-body"><div class="tag-row"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Data Pipelines</span><span class="tag">Documentation</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>Git / GitHub</span><span>85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div></div></div></div>
+        <div class="skill-card win" style="margin:0;"><div class="win-bar"><div class="win-title">📐 Statistics</div></div><div class="skill-body"><div class="tag-row"><span class="tag">Hypothesis Testing</span><span class="tag">Probability</span><span class="tag">Regression</span><span class="tag">Model Eval</span></div><div class="bar-wrap"><div class="bar-row"><div class="bar-label"><span>Statistical Analysis</span><span>88%</span></div><div class="bar-track"><div class="bar-fill" data-w="88"></div></div></div></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<div id="page-experience" class="page">
+  <div class="win">
+    <div class="win-bar">
+      <div class="win-title">💼 experience.log</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body" style="padding:0;">
+      <div class="exp-list">
+        <div class="exp-card win" style="margin:0;"><div class="win-bar"><div class="win-title">💼 Data Analyst Extern — Beats by Dre</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="exp-inner"><div class="exp-side"><div class="exp-date">Feb 2026 – Present</div><div class="exp-co">Beats by Dre</div><span class="badge">🔴 Active</span></div><div class="exp-main"><div class="exp-role">Data Analyst Extern</div><ul class="exp-pts"><li>Generating qualitative and quantitative insights from real-world business datasets for a global consumer brand.</li><li>Deep-diving into EDA and data storytelling to support data-driven product and strategy decisions.</li></ul></div></div></div>
+        <div class="exp-card win" style="margin:0;"><div class="win-bar"><div class="win-title">💼 Data Analyst Intern — Flyersoft</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="exp-inner"><div class="exp-side"><div class="exp-date">May – Jul 2025</div><div class="exp-co">Flyersoft</div><span class="badge">✓ Complete</span></div><div class="exp-main"><div class="exp-role">Data Analyst Intern</div><ul class="exp-pts"><li>Explored ML models using Python and scikit-learn to analyze business data, improving predictive accuracy.</li><li>Hands-on data preprocessing and feature engineering for large-scale data projects.</li></ul></div></div></div>
+        <div class="exp-card win" style="margin:0;"><div class="win-bar"><div class="win-title">👥 Resident Assistant — Vandergriff Hall, UTA</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="exp-inner"><div class="exp-side"><div class="exp-date">Aug 2024 – Jan 2025</div><div class="exp-co">UTA</div><span class="badge l">Leadership</span></div><div class="exp-main"><div class="exp-role">Resident Assistant</div><ul class="exp-pts"><li>Analyzed participation and engagement data from community programs to improve event outcomes.</li><li>Partnered with stakeholders to track trends and support data-informed decision-making.</li></ul></div></div></div>
+        <div class="exp-card win" style="margin:0;"><div class="win-bar"><div class="win-title">🔬 Research Assistant — PHY Dept, UTA</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="exp-inner"><div class="exp-side"><div class="exp-date">Oct 2023 – Mar 2024</div><div class="exp-co">PHY Dept, UTA</div><span class="badge r">Research</span></div><div class="exp-main"><div class="exp-role">Research Assistant</div><ul class="exp-pts"><li>Collected, cleaned, and structured experimental data for accelerator research ensuring downstream accuracy.</li><li>Designed data collection workflows; documented schemas and findings for academic presentations.</li></ul></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ PROJECTS ═══════ -->
+<div id="page-projects" class="page">
+  <div class="win">
+    <div class="win-bar">
+      <div class="win-title">📁 projects/</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body" style="padding:0;">
+      <div class="proj-grid">
+        <div class="proj-card win" style="margin:0;"><div class="win-bar"><div class="win-title">📄 defect_classifier.py</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="proj-inner"><div class="proj-num">01</div><div class="proj-title">Software Defect Classification</div><p class="proj-desc">End-to-end ML pipeline on Kaggle to predict software defects using code complexity metrics. Applied advanced preprocessing, feature engineering, and model optimization — evaluated with Precision, Recall, F1-score, and confusion matrix analysis.</p><div><span class="tech-tag">Python</span><span class="tech-tag">Random Forest</span><span class="tech-tag">Gradient Boosting</span><span class="tech-tag">Scikit-learn</span><span class="tech-tag">Feature Engineering</span></div></div></div>
+        <div class="proj-card win" style="margin:0;"><div class="win-bar"><div class="win-title">📄 magic_telescope.py</div><div class="win-controls"><div class="win-btn">×</div></div></div><div class="proj-inner"><div class="proj-num">02</div><div class="proj-title">Particle Classification — MAGIC Gamma Telescope</div><p class="proj-desc">High-performance ML classifier to distinguish gamma-ray signals from background noise using the MAGIC Telescope dataset. Tackled imbalanced data with class-balanced Random Forest — feature importance analysis identified key predictive variables in physics-based data.</p><div><span class="tech-tag">Python</span><span class="tech-tag">Random Forest</span><span class="tech-tag">ROC-AUC</span><span class="tech-tag">Class Balancing</span><span class="tech-tag">Physics Data</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ EDUCATION ═══════ -->
+<div id="page-education" class="page">
+  <div class="win">
+    <div class="win-bar">
+      <div class="win-title">🎓 education.exe</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body">
+      <div class="edu-grid">
+        <div class="win" style="margin:0;background:var(--win-bg)"><div class="win-bar"><div class="win-title">🏫 UT Arlington</div></div><div class="edu-inner"><div class="edu-school">University of Texas at Arlington · USA</div><div class="edu-degree">B.S. Data Science<br>with Physics</div><div class="edu-period">Aug 2023 – May 2027</div><div class="edu-chip">⚡ Dual STEM Focus</div></div></div>
+        <div class="win" style="margin:0;background:var(--win-bg)"><div class="win-bar"><div class="win-title">🏫 D.A.V. School</div></div><div class="edu-inner"><div class="edu-school">D.A.V. School, Chennai · India</div><div class="edu-degree">Science Group<br>(CBSE)</div><div class="edu-period">Mar 2013 – May 2023</div><div class="edu-chip">🌏 International Foundation</div></div></div>
+      </div>
+      <div class="win" style="background:var(--win-bg2);">
+        <div class="win-bar"><div class="win-title">🏅 certifications.txt</div><div class="win-controls"><div class="win-btn">×</div></div></div>
+        <div class="cert-inner"><div class="cert-badge-ico">🏅</div><div><div class="cert-iss">Python Institute · 2025</div><div class="cert-name">PCEP — Certified Entry-Level Python Programmer</div><div class="cert-dsc">International Python credentialing body verification of foundational Python proficiency. Demonstrates commitment to formal technical standards.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CONTACT ═══════ -->
+<div id="page-contact" class="page">
+  <div class="win" style="max-width:680px;margin:0 auto;">
+    <div class="win-bar">
+      <div class="win-title">✉️ contact.exe</div>
+      <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
+    </div>
+    <div class="win-body" style="text-align:center;">
+      <div style="margin-bottom:22px;">
+        <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:7px;">Let's Connect</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:2.3rem;font-weight:700;line-height:1;color:var(--text);text-shadow:3px 3px 0 rgba(220,40,100,.2);">Ready to<br><span style="color:var(--accent);">work together?</span></div>
+        <p style="color:var(--muted);font-size:.83rem;max-width:440px;margin:12px auto 0;line-height:1.8;">Actively seeking internships and full-time opportunities in Data Science, Analytics, and ML Engineering.</p>
+      </div>
+      <div class="dialog" style="max-width:480px;margin:0 auto 20px;">
+        <div class="win-bar" style="background:var(--accent2);"><div class="win-title">⚠ hire_subhiksha.exe</div></div>
+        <div class="dialog-body"><div class="dialog-icon"></div><div class="dialog-text"><h3>Open to Opportunities</h3><p>Internships · Full-time · Contract<br>Data Science · ML Engineering · Analytics</p></div></div>
+        <div class="dialog-sep"></div>
+        <div class="dialog-btns" style="justify-content:center;">
+          <a href="mailto:subhiksha.paulraj@gmail.com" class="btn btn-p">Send Email</a>
+          <a href="https://www.linkedin.com/in/subhiksha-paulraj" target="_blank" class="btn btn-s">LinkedIn</a>
+          <a href="https://github.com/Subhikshapaulraj" target="_blank" class="btn btn-s">GitHub</a>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <a href="mailto:subhiksha.paulraj@gmail.com" class="contact-card"><div class="c-icon">✉️</div><div><div class="c-lbl">Email</div><div class="c-val">subhiksha.paulraj@gmail.com</div></div></a>
+        <a href="https://www.linkedin.com/in/subhiksha-paulraj" target="_blank" class="contact-card"><div class="c-icon">💼</div><div><div class="c-lbl">LinkedIn</div><div class="c-val">subhiksha-paulraj</div></div></a>
+        <a href="https://github.com/Subhikshapaulraj" target="_blank" class="contact-card"><div class="c-icon">🐙</div><div><div class="c-lbl">GitHub</div><div class="c-val">Subhikshapaulraj</div></div></a>
+        <a href="tel:+16822476164" class="contact-card"><div class="c-icon">📞</div><div><div class="c-lbl">Phone</div><div class="c-val">+1 (682) 247-6164</div></div></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ORDER=['hero','about','skills','experience','projects','education','contact'];
+function sp(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.taskbar-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const i=ORDER.indexOf(id);
+  const tabs=document.querySelectorAll('.taskbar-tab');
+  if(tabs[i])tabs[i].classList.add('active');
+  if(id==='skills')setTimeout(()=>{document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%')},120);
+  document.getElementById('start-menu').classList.remove('open');
+  window.scrollTo(0,0);
+}
+function toggleStart(){document.getElementById('start-menu').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('#start-menu')&&!e.target.closest('.start-btn'))document.getElementById('start-menu').classList.remove('open')});
+function tick(){const n=new Date();document.getElementById('clk').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')}
+tick();setInterval(tick,10000);
+document.querySelectorAll('.bar-fill').forEach(b=>b.style.width='0');
+</script>
+</body>
+</html>
