@@ -91,9 +91,6 @@ body{
 .stat-num{font-family:'DM Sans',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;text-shadow:2px 2px 0 rgba(40,20,60,.2);}
 .stat-lbl{font-size:.68rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.1em}
 /* floating */
-.float-parallax{position:absolute;z-index:5;}
-.float-win{position:relative;background:var(--win-bg);border:2px solid var(--border);box-shadow:4px 4px 0 var(--shadow);font-size:12px;animation:float 4s ease-in-out infinite;}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 /* about */
 .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
 .about-card{background:var(--win-bg);padding:22px 18px;transition:background .2s;}
@@ -174,7 +171,6 @@ body{
   .hero-photo-cover{-webkit-mask-image:none;mask-image:none;}
   .hero-content{padding:18px 18px 24px;}
   .hero-content [style*="max-width:56%"]{max-width:100% !important;}
-  .float-parallax{display:none}
   .taskbar-tab .tl{display:none}
 }
 </style>
@@ -200,7 +196,6 @@ const parallaxBlocks=[];
 <div id="start-menu">
   <div class="sm-header">Subhiksha Paulraj<small>Data Scientist</small></div>
   <div class="sm-item" onclick="sp('hero')">🏠 Home</div>
-  <div class="sm-item" onclick="sp('about')">👤 About</div>
   <div class="sm-item" onclick="sp('skills')">⚙️ Skills</div>
   <div class="sm-item" onclick="sp('experience')">💼 Experience</div>
   <div class="sm-item" onclick="sp('projects')">📁 Projects</div>
@@ -213,7 +208,6 @@ const parallaxBlocks=[];
   <button class="start-btn" onclick="toggleStart()">⊞ START</button>
   <div class="taskbar-sep"></div>
   <a class="taskbar-tab active" onclick="sp('hero');return false" href="#">🏠 <span class="tl">Home</span></a>
-  <a class="taskbar-tab" onclick="sp('about');return false" href="#">👤 <span class="tl">About</span></a>
   <a class="taskbar-tab" onclick="sp('skills');return false" href="#">⚙️ <span class="tl">Skills</span></a>
   <a class="taskbar-tab" onclick="sp('experience');return false" href="#">💼 <span class="tl">Experience</span></a>
   <a class="taskbar-tab" onclick="sp('projects');return false" href="#">📁 <span class="tl">Projects</span></a>
@@ -224,19 +218,6 @@ const parallaxBlocks=[];
 
 <!-- ═══════ HERO ═══════ -->
 <div id="page-hero" class="page active">
-  <div class="float-parallax" data-depth="1.6" style="right:28px;top:55px;width:195px;">
-    <div class="float-win">
-      <div class="win-bar" style="padding:4px 8px;"><div class="win-title" style="font-size:11px;">status.exe</div></div>
-      <div style="padding:10px 13px;font-size:12px;">🔴 <strong>Active:</strong> Wayfair X Extern<br><span style="color:var(--muted);font-size:11px;">AI Agent Engineer Extern</span></div>
-    </div>
-  </div>
-  <div class="float-parallax" data-depth="1.0" style="right:28px;top:230px;width:195px;">
-    <div class="float-win" style="animation-delay:1.5s;">
-      <div class="win-bar" style="padding:4px 8px;"><div class="win-title" style="font-size:11px;">cert.exe</div></div>
-      <div style="padding:9px 13px;font-size:11px;color:var(--muted);">🏅 PCEP Certified<br>Python Institute 2025</div>
-    </div>
-  </div>
-
   <div class="win" style="max-width:820px;margin:0 auto;">
     <div class="win-bar">
       <div class="win-title">📄 portfolio.ai @ 100% &nbsp;×</div>
@@ -249,24 +230,21 @@ const parallaxBlocks=[];
         <img src="subhiksha-photo.png" alt="Subhiksha Paulraj" class="hero-photo-cover"/>
       </div>
       <div class="hero-content">
-        <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;max-width:56%;">◼ Available for Opportunities</div>
-        <div class="hero-big">Subhiksha</div>
-        <div class="hero-big hero-big2" style="margin-top:-8px;">Paulraj_</div>
-        <div class="hero-sub" style="max-width:56%;">Data Scientist · ML Engineer · Physics Enthusiast</div>
-        <div class="stats-row" style="max-width:56%;">
+        <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;max-width:56%;">◼ Available for Opportunities</div>
+        <div class="stats-row" style="max-width:56%;margin-top:0;margin-bottom:22px;">
           <div class="stat-cell"><div class="stat-num">4+</div><div class="stat-lbl">Roles & Internships</div></div>
           <div class="stat-cell"><div class="stat-num">4</div><div class="stat-lbl">Projects Shipped</div></div>
           <div class="stat-cell"><div class="stat-num">2027</div><div class="stat-lbl">Graduating</div></div>
           <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-lbl">Tools & Languages</div></div>
         </div>
+        <div class="hero-big">Subhiksha</div>
+        <div class="hero-big hero-big2" style="margin-top:-8px;">Paulraj_</div>
+        <div class="hero-sub" style="max-width:56%;">Data Scientist · ML Engineer · Physics Enthusiast</div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ═══════ ABOUT ═══════ -->
-<div id="page-about" class="page">
-  <div class="win">
+  <div class="win about-inline" style="max-width:820px;margin:0 auto 20px;">
     <div class="win-bar">
       <div class="win-title">👤 about_me.txt</div>
       <div class="win-controls"><div class="win-btn">_</div><div class="win-btn">□</div><div class="win-btn">×</div></div>
@@ -399,7 +377,7 @@ const parallaxBlocks=[];
 </div>
 
 <script>
-const ORDER=['hero','about','skills','experience','projects','education','contact'];
+const ORDER=['hero','skills','experience','projects','education','contact'];
 let transitioning=false;
 function animateBars(){setTimeout(()=>{document.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%')},120);}
 function sp(id){
@@ -478,15 +456,10 @@ function initTilt(){
 }
 initTilt();
 
-// ---- Ambient parallax: floating windows + background pixels track the cursor ----
-const floatParallaxEls=Array.from(document.querySelectorAll('.float-parallax'));
+// ---- Ambient parallax: background pixels track the cursor ----
 window.addEventListener('mousemove',e=>{
   const cx=(e.clientX/window.innerWidth-0.5)*2;
   const cy=(e.clientY/window.innerHeight-0.5)*2;
-  floatParallaxEls.forEach(f=>{
-    const depth=parseFloat(f.dataset.depth||1);
-    f.style.transform=`translate3d(${(-cx*14*depth).toFixed(1)}px, ${(-cy*14*depth).toFixed(1)}px, 0)`;
-  });
   parallaxBlocks.forEach(b=>{
     b.el.style.transform=`translate3d(${(-cx*10*b.depth).toFixed(1)}px, ${(-cy*10*b.depth).toFixed(1)}px, 0)`;
   });
