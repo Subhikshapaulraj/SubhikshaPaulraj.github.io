@@ -63,16 +63,13 @@ body{
 .hero-big{font-family:'DM Sans',sans-serif;font-size:clamp(4.5rem,12vw,9.5rem);font-weight:700;line-height:.88;letter-spacing:-.03em;color:var(--accent);text-shadow:3px 3px 0 #b01050,6px 6px 0 rgba(40,20,60,.25);}
 .hero-big2{color:var(--text);text-shadow:3px 3px 0 rgba(106,68,128,.4)}
 .hero-sub{font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:300;color:var(--muted);margin:10px 0 20px;font-style:italic;}
-/* photo projector */
-.photo-projector{width:190px;margin:0 auto 10px;position:relative;animation:hologram 6s ease-in-out infinite;}
-.photo-frame{background:var(--win-bg);border:2px solid var(--border);box-shadow:5px 5px 0 var(--shadow);}
-.photo-inner{position:relative;overflow:hidden;background:var(--win-bg2);}
-.photo-img{display:block;width:100%;height:auto;}
-.scan-line{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);box-shadow:0 0 8px 2px rgba(255,255,255,.55);opacity:.75;animation:scan 3s linear infinite;}
-.photo-base{width:70%;height:9px;margin:6px auto 0;background:radial-gradient(ellipse at center,var(--accent) 0%,transparent 72%);filter:blur(2px);animation:baseGlow 6s ease-in-out infinite;}
-@keyframes hologram{0%,100%{transform:perspective(900px) rotateY(-8deg) rotateX(1.5deg) translateZ(0);}50%{transform:perspective(900px) rotateY(8deg) rotateX(-1.5deg) translateZ(14px);}}
-@keyframes scan{0%{top:0%}100%{top:100%}}
-@keyframes baseGlow{0%,100%{transform:scaleX(.82);opacity:.32;}50%{transform:scaleX(1.15);opacity:.62;}}
+/* hero photo panel — bleeds to the edge, no window chrome, name overlaps it */
+.hero-body{position:relative;overflow:hidden;padding:0;min-height:420px;}
+.hero-photo-panel{position:absolute;top:0;right:0;bottom:0;width:46%;z-index:1;}
+.hero-photo-cover{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;
+  -webkit-mask-image:linear-gradient(to left,black 62%,transparent 100%);
+  mask-image:linear-gradient(to left,black 62%,transparent 100%);}
+.hero-content{position:relative;z-index:2;padding:26px 28px;}
 /* dialog */
 .dialog{background:var(--win-bg2);border:2px solid var(--border);box-shadow:5px 5px 0 var(--shadow);}
 .dialog-body{padding:18px 22px;display:flex;gap:14px;align-items:flex-start;}
@@ -172,7 +169,11 @@ body{
   .exp-side{border-right:none;border-bottom:1px solid var(--border)}
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .hero-big{font-size:clamp(3rem,17vw,6rem)}
-  .photo-projector{width:150px}
+  .hero-body{min-height:0;}
+  .hero-photo-panel{position:static;width:100%;height:260px;margin-bottom:4px;}
+  .hero-photo-cover{-webkit-mask-image:none;mask-image:none;}
+  .hero-content{padding:18px 18px 24px;}
+  .hero-content [style*="max-width:56%"]{max-width:100% !important;}
   .float-parallax{display:none}
   .taskbar-tab .tl{display:none}
 }
@@ -243,26 +244,21 @@ const parallaxBlocks=[];
     </div>
     <div class="win-menu"><span>File</span><span>Edit</span><span>Object</span><span>Type</span><span>Select</span><span>Effect</span><span>View</span></div>
     <div class="addr-bar"><span style="color:var(--muted);font-size:11px;">URL:</span>subhikshapaulraj.github.io<span class="blink"></span></div>
-    <div class="win-body">
-      <div class="photo-projector">
-        <div class="photo-frame">
-          <div class="win-bar" style="padding:4px 10px;"><div class="win-title" style="font-size:11px;">me.exe</div><div class="win-controls"><div class="win-btn">×</div></div></div>
-          <div class="photo-inner">
-            <img src="subhiksha-photo.png" alt="Subhiksha Paulraj" class="photo-img"/>
-            <div class="scan-line"></div>
-          </div>
-        </div>
-        <div class="photo-base"></div>
+    <div class="win-body hero-body">
+      <div class="hero-photo-panel">
+        <img src="subhiksha-photo.png" alt="Subhiksha Paulraj" class="hero-photo-cover"/>
       </div>
-      <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;text-align:center;">◼ Available for Opportunities</div>
-      <div class="hero-big" style="text-align:center;">Subhiksha</div>
-      <div class="hero-big hero-big2" style="margin-top:-8px;text-align:center;">Paulraj_</div>
-      <div class="hero-sub" style="text-align:center;">Data Scientist · ML Engineer · Physics Enthusiast</div>
-      <div class="stats-row">
-        <div class="stat-cell"><div class="stat-num">4+</div><div class="stat-lbl">Roles & Internships</div></div>
-        <div class="stat-cell"><div class="stat-num">4</div><div class="stat-lbl">Projects Shipped</div></div>
-        <div class="stat-cell"><div class="stat-num">2027</div><div class="stat-lbl">Graduating</div></div>
-        <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-lbl">Tools & Languages</div></div>
+      <div class="hero-content">
+        <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;max-width:56%;">◼ Available for Opportunities</div>
+        <div class="hero-big">Subhiksha</div>
+        <div class="hero-big hero-big2" style="margin-top:-8px;">Paulraj_</div>
+        <div class="hero-sub" style="max-width:56%;">Data Scientist · ML Engineer · Physics Enthusiast</div>
+        <div class="stats-row" style="max-width:56%;">
+          <div class="stat-cell"><div class="stat-num">4+</div><div class="stat-lbl">Roles & Internships</div></div>
+          <div class="stat-cell"><div class="stat-num">4</div><div class="stat-lbl">Projects Shipped</div></div>
+          <div class="stat-cell"><div class="stat-num">2027</div><div class="stat-lbl">Graduating</div></div>
+          <div class="stat-cell"><div class="stat-num">15+</div><div class="stat-lbl">Tools & Languages</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -454,7 +450,7 @@ setInterval(updateClock,10000);
 
 // ---- Mouse tilt on cards/windows ----
 function initTilt(){
-  const tiltEls=document.querySelectorAll('#page-hero > .win, .photo-frame, .about-card, .skill-card.win, .exp-card.win, .proj-card.win, .edu-grid .win, .cert-win, .contact-card, .dialog');
+  const tiltEls=document.querySelectorAll('#page-hero > .win, .about-card, .skill-card.win, .exp-card.win, .proj-card.win, .edu-grid .win, .cert-win, .contact-card, .dialog');
   tiltEls.forEach(el=>{
     el.classList.add('tilt-el');
     let raf=null;
