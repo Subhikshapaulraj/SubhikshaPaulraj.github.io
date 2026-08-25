@@ -378,10 +378,144 @@
     86%{ rotate: 1.4deg; }
   }
 
+  /* ---------- Skills (eye + pinned notes) ---------- */
+  .skills-section{
+    position: relative;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 50% 38%, #ffb15c 0%, #ff8d00 46%, #e8720a 100%);
+    color: #241100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 6vh 6vw;
+    overflow: hidden;
+  }
+
+  .skills-stage{
+    position: relative;
+    width: min(90vw, 760px);
+    aspect-ratio: 1 / 1;
+  }
+
+  .eye-wrap{
+    position:absolute;
+    left:50%; top:50%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    z-index:2;
+    filter: drop-shadow(0 18px 30px rgba(90,30,0,0.28));
+  }
+  .eye-wrap svg{ width:100%; height:auto; display:block; overflow: visible; }
+
+  .blink-lid{
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    transform: scaleY(0);
+    animation: eyeBlink 5.5s ease-in-out infinite;
+  }
+  @keyframes eyeBlink{
+    0%, 90%, 100%{ transform: scaleY(0); }
+    92.5%{ transform: scaleY(1); }
+    95%{ transform: scaleY(0); }
+  }
+
+  #irisGroup{ transition: transform 0.09s linear; }
+
+  .note-card{
+    position:absolute;
+    z-index:3;
+    width: min(30vw, 250px);
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.24);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 20px;
+    padding: 1.3rem 1.25rem 1.2rem;
+    box-shadow: 0 22px 44px rgba(90,30,0,0.22), inset 0 1px 0 rgba(255,255,255,0.55);
+    animation: tabFloat 4.6s ease-in-out infinite, noteShake 6.5s ease-in-out infinite;
+  }
+  .note-pin{
+    position:absolute;
+    top:-13px; left:50%;
+    transform: translateX(-50%);
+    width:22px; height:22px;
+    border-radius:50%;
+    background: radial-gradient(circle at 34% 28%, #ffffff 0%, var(--pin-color, #ff4d4d) 38%, var(--pin-color-dark, #c22) 100%);
+    box-shadow: 0 5px 8px rgba(0,0,0,0.28);
+    z-index:4;
+  }
+  .note-pin::after{
+    content:'';
+    position:absolute;
+    left:50%; top:100%;
+    width:2px; height:11px;
+    background: rgba(0,0,0,0.18);
+    transform: translateX(-50%);
+  }
+  .note-num{
+    font-family: var(--font-mono);
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    color: var(--pin-color-dark, #c22);
+    margin: 0 0 0.35rem;
+  }
+  .note-title{
+    font-family: var(--font-display);
+    font-weight:700;
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+    line-height:1.2;
+    color:#1c1108;
+    margin: 0 0 0.4rem;
+  }
+  .note-desc{
+    font-family: var(--font-body);
+    font-size: clamp(0.74rem, 1.15vw, 0.82rem);
+    line-height:1.5;
+    color:#4a3624;
+    margin:0;
+  }
+  @keyframes noteShake{
+    0%, 100%{ rotate: -0.6deg; }
+    50%{ rotate: 0.8deg; }
+  }
+
+  @media (max-width: 720px){
+    .skills-stage{
+      width: 100%;
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+    .eye-wrap{
+      position: static;
+      transform: none;
+      width: 150px;
+      margin: 0 auto;
+    }
+    .note-card{
+      position: static;
+      transform: none;
+      width: min(88vw, 380px);
+      padding: 1.1rem 1.15rem 1.05rem;
+      border-radius: 18px;
+    }
+    .note-title{ font-size: 1rem; }
+    .note-desc{ font-size: 0.8rem; line-height: 1.5; }
+    .note-pin{ width:20px; height:20px; top:-11px; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     .hero-name, .hero-subtitle, .i-dot{ transition: none !important; }
     .orbit-spin, .atom3d-scene, .nucleus-ring, .hub-tab{ animation: none !important; }
+    .blink-lid, .note-card{ animation: none !important; }
+    #irisGroup{ transition: none !important; }
   }
 </style>
 </head>
@@ -444,7 +578,7 @@
 
       <div class="nucleus">
         <div class="nucleus-ring" aria-hidden="true"></div>
-        <div class="nucleus-core">Know more<br />about me</div>
+        <div class="nucleus-core">Subhiksha<br />Paulraj</div>
       </div>
 
       <a href="#about" class="hub-tab" style="left:50%; top:5%; --tab-color:#00e5ff; --tab-glow:rgba(0,229,255,0.6); animation-duration:4.2s,5.6s; animation-delay:0s,.15s;">About&nbsp;Me</a>
@@ -452,6 +586,78 @@
       <a href="#experience" class="hub-tab" style="left:75.3%; top:84.8%; --tab-color:#baff29; --tab-glow:rgba(186,255,41,0.6); animation-duration:4.9s,5.9s; animation-delay:.6s,.2s;">Experience</a>
       <a href="#projects" class="hub-tab" style="left:24.7%; top:84.8%; --tab-color:#ffe600; --tab-glow:rgba(255,230,0,0.6); animation-duration:4.3s,5.4s; animation-delay:.9s,.4s;">Projects</a>
       <a href="#skills" class="hub-tab" style="left:9.1%; top:36.7%; --tab-color:#ff7a1a; --tab-glow:rgba(255,122,26,0.6); animation-duration:4.7s,5.1s; animation-delay:1.2s,.1s;">Skills</a>
+    </div>
+  </section>
+
+  <section id="skills" class="skills-section">
+    <div class="skills-stage">
+      <div class="eye-wrap">
+        <svg viewBox="0 0 300 200" id="eyeSvg">
+          <defs>
+            <clipPath id="eyeClip">
+              <path d="M20,100 C60,25 240,25 280,100 C240,145 60,145 20,100 Z" />
+            </clipPath>
+            <radialGradient id="scleraGrad" cx="50%" cy="45%" r="65%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="75%" stop-color="#fbf6f2" />
+              <stop offset="100%" stop-color="#f0e2d8" />
+            </radialGradient>
+            <radialGradient id="irisGrad" cx="42%" cy="38%" r="65%">
+              <stop offset="0%" stop-color="#d98b3f" />
+              <stop offset="45%" stop-color="#a8631f" />
+              <stop offset="80%" stop-color="#5c3512" />
+              <stop offset="100%" stop-color="#2b1608" />
+            </radialGradient>
+          </defs>
+
+          <g clip-path="url(#eyeClip)">
+            <rect x="0" y="0" width="300" height="200" fill="url(#scleraGrad)" />
+            <ellipse cx="30" cy="100" rx="26" ry="18" fill="#ffb3a6" opacity="0.18" />
+            <ellipse cx="270" cy="100" rx="26" ry="18" fill="#ffb3a6" opacity="0.14" />
+
+            <g id="irisGroup">
+              <circle cx="150" cy="100" r="46" fill="url(#irisGrad)" />
+              <g id="irisTexture"></g>
+              <circle cx="150" cy="100" r="46" fill="none" stroke="#1a0d04" stroke-width="2" opacity="0.6" />
+              <circle cx="150" cy="100" r="21" fill="#080604" />
+              <ellipse cx="137" cy="86" rx="10" ry="7" fill="#ffffff" opacity="0.85" />
+              <circle cx="160" cy="108" r="3.4" fill="#ffffff" opacity="0.5" />
+            </g>
+
+            <rect class="blink-lid" x="0" y="0" width="300" height="200" fill="#ff8d00" />
+          </g>
+
+          <path d="M20,100 C60,25 240,25 280,100 C240,145 60,145 20,100 Z" fill="none" stroke="#1c0f04" stroke-width="5" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div class="note-card" style="left:50%; top:8%; --pin-color:#ff6a6a; --pin-color-dark:#b32b2b;">
+        <div class="note-pin" aria-hidden="true"></div>
+        <p class="note-num">01</p>
+        <h3 class="note-title">Languages &amp; Data</h3>
+        <p class="note-desc">Python, C++, SQL, R, Excel, Tableau, SAS — plus Git for version control. The core toolkit for working with data end to end.</p>
+      </div>
+
+      <div class="note-card" style="left:90%; top:50%; --pin-color:#5a8dff; --pin-color-dark:#2648a8;">
+        <div class="note-pin" aria-hidden="true"></div>
+        <p class="note-num">02</p>
+        <h3 class="note-title">Web &amp; Backend</h3>
+        <p class="note-desc">FastAPI, React, Vite, Docker, and PostgreSQL — turning models and pipelines into real, deployed applications.</p>
+      </div>
+
+      <div class="note-card" style="left:50%; top:92%; --pin-color:#a374ff; --pin-color-dark:#5b2fa8;">
+        <div class="note-pin" aria-hidden="true"></div>
+        <p class="note-num">03</p>
+        <h3 class="note-title">AI &amp; Automation</h3>
+        <p class="note-desc">n8n multi-agent workflows, the Claude API, Clarifai, and spaCy — turning unstructured input into structured output.</p>
+      </div>
+
+      <div class="note-card" style="left:10%; top:50%; --pin-color:#ff7fb0; --pin-color-dark:#a83566;">
+        <div class="note-pin" aria-hidden="true"></div>
+        <p class="note-num">04</p>
+        <h3 class="note-title">Data Science &amp; ML</h3>
+        <p class="note-desc">EDA, feature engineering, regression &amp; classification, model evaluation, and hypothesis testing.</p>
+      </div>
     </div>
   </section>
 </main>
@@ -588,6 +794,83 @@
   });
 
   startIntro();
+})();
+</script>
+
+<script>
+(function(){
+  var eyeSvg = document.getElementById('eyeSvg');
+  var irisGroup = document.getElementById('irisGroup');
+  var irisTexture = document.getElementById('irisTexture');
+  if (!eyeSvg || !irisGroup) return;
+
+  var reducedEye = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // build iris texture lines once
+  if (irisTexture){
+    var svgNS = 'http://www.w3.org/2000/svg';
+    for (var i = 0; i < 20; i++){
+      var angle = (i / 20) * Math.PI * 2;
+      var r1 = 23, r2 = 45;
+      var x1 = 150 + Math.cos(angle) * r1;
+      var y1 = 100 + Math.sin(angle) * r1;
+      var x2 = 150 + Math.cos(angle) * r2;
+      var y2 = 100 + Math.sin(angle) * r2;
+      var line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', x1.toFixed(1));
+      line.setAttribute('y1', y1.toFixed(1));
+      line.setAttribute('x2', x2.toFixed(1));
+      line.setAttribute('y2', y2.toFixed(1));
+      line.setAttribute('stroke', '#3a2210');
+      line.setAttribute('stroke-width', '1');
+      line.setAttribute('opacity', (0.18 + (i % 3) * 0.08).toFixed(2));
+      irisTexture.appendChild(line);
+    }
+  }
+
+  if (reducedEye) return;
+
+  var maxOffset = 13; // user-unit clamp radius for pupil travel
+  var ticking = false;
+  var lastX = null, lastY = null;
+
+  function applyLook(clientX, clientY){
+    var rect = eyeSvg.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    var dx = clientX - cx;
+    var dy = clientY - cy;
+    var scaleX = 300 / rect.width;
+    var scaleY = 200 / rect.height;
+    var ux = dx * scaleX;
+    var uy = dy * scaleY;
+    var dist = Math.sqrt(ux * ux + uy * uy);
+    var k = dist > maxOffset ? maxOffset / dist : 1;
+    irisGroup.style.transform = 'translate(' + (ux * k).toFixed(2) + 'px,' + (uy * k).toFixed(2) + 'px)';
+  }
+
+  function onMove(clientX, clientY){
+    lastX = clientX;
+    lastY = clientY;
+    if (!ticking){
+      ticking = true;
+      requestAnimationFrame(function(){
+        applyLook(lastX, lastY);
+        ticking = false;
+      });
+    }
+  }
+
+  window.addEventListener('mousemove', function(e){
+    onMove(e.clientX, e.clientY);
+  }, { passive: true });
+
+  window.addEventListener('touchmove', function(e){
+    if (e.touches && e.touches[0]){
+      onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
 })();
 </script>
 
