@@ -44,10 +44,12 @@
   a{ color: inherit; }
 
   /* ---------- Hero ---------- */
+  body.intro-lock{ overflow: hidden; height: 100vh; }
+
   .hero{
-    position: relative;
-    height: 100svh;
-    min-height: 560px;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
     overflow: hidden;
     display:flex;
     align-items:center;
@@ -56,6 +58,13 @@
     background:
       radial-gradient(circle at 50% 38%, var(--ink-softer) 0%, var(--ink-soft) 42%, var(--ink) 78%),
       repeating-radial-gradient(circle at 20% 80%, rgba(178,210,255,0.05) 0, rgba(178,210,255,0.05) 1px, transparent 1px, transparent 44px);
+    transform: translateY(0);
+  }
+  .hero.hero-exit{
+    animation: heroSlideUp 0.9s cubic-bezier(.65,0,.35,1) forwards;
+  }
+  @keyframes heroSlideUp{
+    to{ transform: translateY(-100%); }
   }
 
   .hero-illustration{
@@ -235,8 +244,9 @@
   .hub{
     position: relative;
     min-height: 100vh;
-    background: #ffffff;
-    color: #0a0a0a;
+    background:
+      radial-gradient(circle at 50% 42%, #171022 0%, #0a0710 55%, #030105 100%);
+    color: #ffffff;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -258,6 +268,10 @@
     z-index:1;
     transform-style: preserve-3d;
     animation: atomTumble 20s linear infinite;
+    filter:
+      drop-shadow(0 0 6px rgba(255,255,255,0.9))
+      drop-shadow(0 0 22px rgba(180,210,255,0.7))
+      drop-shadow(0 0 46px rgba(107,147,248,0.45));
   }
   @keyframes atomTumble{
     from{ transform: rotateX(16deg) rotateY(0deg); }
@@ -275,9 +289,9 @@
 
   .hub-lines{ position:absolute; inset:0; width:100%; height:100%; z-index:2; overflow: visible; }
   .hub-lines line{
-    stroke: #0a0a0a;
+    stroke: #ffffff;
     stroke-width: 0.4;
-    stroke-opacity: 0.28;
+    stroke-opacity: 0.3;
   }
 
   @keyframes spin{ to{ transform: rotate(360deg); } }
@@ -295,27 +309,29 @@
     position:absolute;
     inset: -18%;
     border-radius: 50%;
-    border: 3px dashed #0a0a0a;
+    border: 3px dashed #ffffff;
     animation: spin 7s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.85));
   }
   .nucleus-ring::after{
     content:'';
     position:absolute;
     inset: -8px;
     border-radius: 50%;
-    border: 1px solid rgba(10,10,10,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
   }
   .nucleus-core{
     position:absolute;
     inset:0;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 34% 26%, #3a3a3a 0%, #0a0a0a 45%, #000000 100%);
+      radial-gradient(circle at 34% 26%, #ffffff 0%, #f2f0ff 45%, #dcd6ff 100%);
     box-shadow:
-      inset -10px -14px 26px rgba(0,0,0,0.55),
-      inset 8px 10px 18px rgba(255,255,255,0.06),
-      0 22px 40px rgba(0,0,0,0.22);
-    color: #ffffff;
+      inset -10px -14px 26px rgba(107,147,248,0.28),
+      inset 8px 10px 18px rgba(255,255,255,0.9),
+      0 0 22px rgba(255,255,255,0.85),
+      0 0 55px rgba(180,210,255,0.55);
+    color: #100a1f;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -336,8 +352,8 @@
     z-index:4;
     display:inline-block;
     white-space: nowrap;
-    background: #0a0a0a;
-    color: var(--tab-color);
+    background: #ffffff;
+    color: #14101f;
     border: 2px solid var(--tab-color);
     border-radius: 999px;
     padding: 1.15em 2.1em;
@@ -394,45 +410,32 @@
 
   .skills-stage{
     position: relative;
-    width: min(90vw, 760px);
+    width: min(92vw, 1180px);
     aspect-ratio: 1 / 1;
   }
 
   .eye-wrap{
     position:absolute;
     left:50%; top:50%;
-    width: 30%;
+    width: 22%;
     transform: translate(-50%, -50%);
     z-index:2;
     filter: drop-shadow(0 18px 30px rgba(90,30,0,0.28));
   }
   .eye-wrap svg{ width:100%; height:auto; display:block; overflow: visible; }
-
-  .blink-lid{
-    transform-box: fill-box;
-    transform-origin: 50% 50%;
-    transform: scaleY(0);
-    animation: eyeBlink 5.5s ease-in-out infinite;
-  }
-  @keyframes eyeBlink{
-    0%, 90%, 100%{ transform: scaleY(0); }
-    92.5%{ transform: scaleY(1); }
-    95%{ transform: scaleY(0); }
-  }
-
-  #irisGroup{ transition: transform 0.09s linear; }
+  #eyeLookGroup{ transition: transform 0.09s linear; }
 
   .note-card{
     position:absolute;
     z-index:3;
-    width: min(30vw, 250px);
+    width: min(27vw, 340px);
     transform: translate(-50%, -50%);
     background: rgba(255,255,255,0.24);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
     backdrop-filter: blur(18px) saturate(160%);
     border: 1px solid rgba(255,255,255,0.6);
-    border-radius: 20px;
-    padding: 1.3rem 1.25rem 1.2rem;
+    border-radius: 22px;
+    padding: 1.5rem 1.4rem 1.5rem;
     box-shadow: 0 22px 44px rgba(90,30,0,0.22), inset 0 1px 0 rgba(255,255,255,0.55);
     animation: tabFloat 4.6s ease-in-out infinite, noteShake 6.5s ease-in-out infinite;
   }
@@ -464,18 +467,31 @@
   }
   .note-title{
     font-family: var(--font-display);
-    font-weight:700;
-    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-    line-height:1.2;
+    font-weight:800;
+    font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+    line-height:1.18;
+    letter-spacing: -0.01em;
     color:#1c1108;
-    margin: 0 0 0.4rem;
+    margin: 0 0 0.85rem;
   }
-  .note-desc{
-    font-family: var(--font-body);
-    font-size: clamp(0.74rem, 1.15vw, 0.82rem);
-    line-height:1.5;
-    color:#4a3624;
-    margin:0;
+  .skill-chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .skill-chip{
+    display:inline-block;
+    background: rgba(255,255,255,0.58);
+    border: 1px solid rgba(255,255,255,0.85);
+    color: var(--pin-color-dark, #333);
+    font-family: var(--font-mono);
+    font-weight:600;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    padding: 0.4em 0.7em;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(60,20,0,0.08);
   }
   @keyframes noteShake{
     0%, 100%{ rotate: -0.6deg; }
@@ -501,12 +517,12 @@
     .note-card{
       position: static;
       transform: none;
-      width: min(88vw, 380px);
-      padding: 1.1rem 1.15rem 1.05rem;
+      width: min(90vw, 400px);
+      padding: 1.25rem 1.25rem 1.3rem;
       border-radius: 18px;
     }
-    .note-title{ font-size: 1rem; }
-    .note-desc{ font-size: 0.8rem; line-height: 1.5; }
+    .note-title{ font-size: 1.15rem; margin-bottom: 0.7rem; }
+    .skill-chip{ font-size: 0.7rem; }
     .note-pin{ width:20px; height:20px; top:-11px; }
   }
 
@@ -514,12 +530,12 @@
     html{ scroll-behavior:auto; }
     .hero-name, .hero-subtitle, .i-dot{ transition: none !important; }
     .orbit-spin, .atom3d-scene, .nucleus-ring, .hub-tab{ animation: none !important; }
-    .blink-lid, .note-card{ animation: none !important; }
-    #irisGroup{ transition: none !important; }
+    .note-card{ animation: none !important; }
+    #eyeLookGroup{ transition: none !important; }
   }
 </style>
 </head>
-<body>
+<body class="intro-lock">
 
 <header class="hero" id="hero">
   <div class="hero-illustration" aria-hidden="true">
@@ -549,20 +565,20 @@
         <svg class="atom-orbits" viewBox="0 0 200 200">
           <g transform="rotate(0 100 100)">
             <g class="orbit-spin o1">
-              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#0a0a0a" stroke-width="2.5" />
-              <circle cx="192" cy="100" r="6" fill="#0a0a0a" />
+              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#ffffff" stroke-width="2.5" />
+              <circle cx="192" cy="100" r="6" fill="#ffffff" />
             </g>
           </g>
           <g transform="rotate(60 100 100)">
             <g class="orbit-spin o2">
-              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#1f1f1f" stroke-width="2.5" />
-              <circle cx="192" cy="100" r="6" fill="#1f1f1f" />
+              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#e4ebff" stroke-width="2.5" />
+              <circle cx="192" cy="100" r="6" fill="#e4ebff" />
             </g>
           </g>
           <g transform="rotate(120 100 100)">
             <g class="orbit-spin o3">
-              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#3a3a3a" stroke-width="2.5" />
-              <circle cx="192" cy="100" r="6" fill="#3a3a3a" />
+              <ellipse cx="100" cy="100" rx="92" ry="34" fill="none" stroke="#c9d6ff" stroke-width="2.5" />
+              <circle cx="192" cy="100" r="6" fill="#c9d6ff" />
             </g>
           </g>
         </svg>
@@ -592,71 +608,90 @@
   <section id="skills" class="skills-section">
     <div class="skills-stage">
       <div class="eye-wrap">
-        <svg viewBox="0 0 300 200" id="eyeSvg">
-          <defs>
-            <clipPath id="eyeClip">
-              <path d="M20,100 C60,25 240,25 280,100 C240,145 60,145 20,100 Z" />
-            </clipPath>
-            <radialGradient id="scleraGrad" cx="50%" cy="45%" r="65%">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="75%" stop-color="#fbf6f2" />
-              <stop offset="100%" stop-color="#f0e2d8" />
-            </radialGradient>
-            <radialGradient id="irisGrad" cx="42%" cy="38%" r="65%">
-              <stop offset="0%" stop-color="#d98b3f" />
-              <stop offset="45%" stop-color="#a8631f" />
-              <stop offset="80%" stop-color="#5c3512" />
-              <stop offset="100%" stop-color="#2b1608" />
-            </radialGradient>
-          </defs>
-
-          <g clip-path="url(#eyeClip)">
-            <rect x="0" y="0" width="300" height="200" fill="url(#scleraGrad)" />
-            <ellipse cx="30" cy="100" rx="26" ry="18" fill="#ffb3a6" opacity="0.18" />
-            <ellipse cx="270" cy="100" rx="26" ry="18" fill="#ffb3a6" opacity="0.14" />
-
-            <g id="irisGroup">
-              <circle cx="150" cy="100" r="46" fill="url(#irisGrad)" />
-              <g id="irisTexture"></g>
-              <circle cx="150" cy="100" r="46" fill="none" stroke="#1a0d04" stroke-width="2" opacity="0.6" />
-              <circle cx="150" cy="100" r="21" fill="#080604" />
-              <ellipse cx="137" cy="86" rx="10" ry="7" fill="#ffffff" opacity="0.85" />
-              <circle cx="160" cy="108" r="3.4" fill="#ffffff" opacity="0.5" />
-            </g>
-
-            <rect class="blink-lid" x="0" y="0" width="300" height="200" fill="#ff8d00" />
-          </g>
-
-          <path d="M20,100 C60,25 240,25 280,100 C240,145 60,145 20,100 Z" fill="none" stroke="#1c0f04" stroke-width="5" stroke-linejoin="round" />
-        </svg>
+        <svg id="eyeSvg" fill="none" height="100%" width="100%" viewBox="270 380 540 300" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><defs><filter id="i0"><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" type="matrix" /></filter><mask height="20000" width="20000" y="-10000" x="-10000" maskContentUnits="userSpaceOnUse" maskUnits="userSpaceOnUse" style="mask-type: alpha" mask-type="alpha" id="i1"><g filter="url(#i0)" transform="matrix(1,0,0,1,540,540)"><g id="i2"><path d="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z" fill="#ecf0f1"><animate repeatCount="indefinite" attributeName="d" dur="5.542s" begin="0s" calcMode="spline" values="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M0,-5C121.503,-5,220,0,220,0C220,0,121.503,5,0,5C-121.503,5,-220,0,-220,0C-220,0,-121.503,-5,0,-5Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M-33.464,64.89C88.039,64.89,186.268,13.89,186.268,13.89C186.268,13.89,87.574,64.89,-33.929,64.89C-155.432,64.89,-253.732,13.89,-253.732,13.89C-253.732,13.89,-154.967,64.89,-33.464,64.89Z; M-51,-84C70.503,-84,169,21,169,21C169,21,70.503,126,-51,126C-172.503,126,-271,21,-271,21C-271,21,-172.503,-84,-51,-84Z; M54,-88C175.503,-88,274,17,274,17C274,17,175.503,122,54,122C-67.503,122,-166,17,-166,17C-166,17,-67.503,-88,54,-88Z; M33.109,101.485C154.612,101.485,253.304,10.485,253.304,10.485C253.304,10.485,154.612,101.485,33.109,101.485C-88.394,101.485,-186.696,10.485,-186.696,10.485C-186.696,10.485,-88.394,101.485,33.109,101.485Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z" keyTimes="0; 0.045113; 0.075188; 0.225564; 0.330827; 0.428571; 0.609023; 0.69173; 0.789474; 0.857143; 0.947368; 1" keySplines="0 0 1 1; 1 0 0.19 1; 0.727 0 0 1; 0.583 0 0.833 0.833; 0.167 0.167 0.298 1; 0.765 0 0.317 1; 0.671 0 0.833 0.833; 0.167 0.167 0.323 1; 0.167 0 0.667 1; 0.834 0 0.21 1; 0 0 1 1" fill="freeze" /></path></g></g></mask></defs><g transform="matrix(1,0,0,1,540,540)" visibility="hidden" id="i3"><animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="5.542s" values="hidden; visible; hidden; hidden" keyTimes="0; 0.045003; 0.947057; 1" attributeName="visibility" /><g id="i2"><path d="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z" fill="#ecf0f1"><animate repeatCount="indefinite" attributeName="d" dur="5.542s" begin="0s" calcMode="spline" values="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M0,-5C121.503,-5,220,0,220,0C220,0,121.503,5,0,5C-121.503,5,-220,0,-220,0C-220,0,-121.503,-5,0,-5Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M-33.464,64.89C88.039,64.89,186.268,13.89,186.268,13.89C186.268,13.89,87.574,64.89,-33.929,64.89C-155.432,64.89,-253.732,13.89,-253.732,13.89C-253.732,13.89,-154.967,64.89,-33.464,64.89Z; M-51,-84C70.503,-84,169,21,169,21C169,21,70.503,126,-51,126C-172.503,126,-271,21,-271,21C-271,21,-172.503,-84,-51,-84Z; M54,-88C175.503,-88,274,17,274,17C274,17,175.503,122,54,122C-67.503,122,-166,17,-166,17C-166,17,-67.503,-88,54,-88Z; M33.109,101.485C154.612,101.485,253.304,10.485,253.304,10.485C253.304,10.485,154.612,101.485,33.109,101.485C-88.394,101.485,-186.696,10.485,-186.696,10.485C-186.696,10.485,-88.394,101.485,33.109,101.485Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z" keyTimes="0; 0.045113; 0.075188; 0.225564; 0.330827; 0.428571; 0.609023; 0.69173; 0.789474; 0.857143; 0.947368; 1" keySplines="0 0 1 1; 1 0 0.19 1; 0.727 0 0 1; 0.583 0 0.833 0.833; 0.167 0.167 0.298 1; 0.765 0 0.317 1; 0.671 0 0.833 0.833; 0.167 0.167 0.323 1; 0.167 0 0.667 1; 0.834 0 0.21 1; 0 0 1 1" fill="freeze" /></path></g></g><g mask="url(#i1)" visibility="hidden" id="i4"><animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="5.542s" values="hidden; visible; hidden; hidden" keyTimes="0; 0.045003; 0.947057; 1" attributeName="visibility" /><g id="eyeLookGroup" transform="translate(540,577)"><g transform="scale(1,1)"><g transform="translate(0,0)"><g id="i5"><path fill="#5e17eb" d="M0,-110C60.751,-110,110,-60.751,110,0C110,60.751,60.751,110,0,110C-60.751,110,-110,60.751,-110,0C-110,-60.751,-60.751,-110,0,-110Z" /></g><g id="i2"><path d="M0,-88C48.601,-88,88,-48.601,88,0C88,48.601,48.601,88,0,88C-48.601,88,-88,48.601,-88,0C-88,-48.601,-48.601,-88,0,-88Z" fill="#080302"><animate repeatCount="indefinite" attributeName="d" dur="5.542s" begin="0s" calcMode="spline" values="M0,-88C48.601,-88,88,-48.601,88,0C88,48.601,48.601,88,0,88C-48.601,88,-88,48.601,-88,0C-88,-48.601,-48.601,-88,0,-88Z; M0,-88C48.601,-88,88,-48.601,88,0C88,48.601,48.601,88,0,88C-48.601,88,-88,48.601,-88,0C-88,-48.601,-48.601,-88,0,-88Z; M0,-47C25.957,-47,47,-25.957,47,0C47,25.957,25.957,47,0,47C-25.957,47,-47,25.957,-47,0C-47,-25.957,-25.957,-47,0,-47Z; M0,-63.159C34.882,-63.159,63.159,-34.882,63.159,0C63.159,34.882,34.882,63.159,0,63.159C-34.882,63.159,-63.159,34.882,-63.159,0C-63.159,-34.882,-34.882,-63.159,0,-63.159Z; M0,-47C25.957,-47,47,-25.957,47,0C47,25.957,25.957,47,0,47C-25.957,47,-47,25.957,-47,0C-47,-25.957,-25.957,-47,0,-47Z; M0,-47C25.957,-47,47,-25.957,47,0C47,25.957,25.957,47,0,47C-25.957,47,-47,25.957,-47,0C-47,-25.957,-25.957,-47,0,-47Z; M0,-58.85C32.502,-58.85,58.85,-32.502,58.85,0C58.85,32.502,32.502,58.85,0,58.85C-32.502,58.85,-58.85,32.502,-58.85,0C-58.85,-32.502,-32.502,-58.85,0,-58.85Z; M0,-47C25.957,-47,47,-25.957,47,0C47,25.957,25.957,47,0,47C-25.957,47,-47,25.957,-47,0C-47,-25.957,-25.957,-47,0,-47Z; M0,-47C25.957,-47,47,-25.957,47,0C47,25.957,25.957,47,0,47C-25.957,47,-47,25.957,-47,0C-47,-25.957,-25.957,-47,0,-47Z; M0,-58.85C32.502,-58.85,58.85,-32.502,58.85,0C58.85,32.502,32.502,58.85,0,58.85C-32.502,58.85,-58.85,32.502,-58.85,0C-58.85,-32.502,-32.502,-58.85,0,-58.85Z; M0,-58.85C32.502,-58.85,58.85,-32.502,58.85,0C58.85,32.502,32.502,58.85,0,58.85C-32.502,58.85,-58.85,32.502,-58.85,0C-58.85,-32.502,-32.502,-58.85,0,-58.85Z" keyTimes="0; 0.045113; 0.225564; 0.330827; 0.428571; 0.586466; 0.69173; 0.789474; 0.857143; 0.947368; 1" keySplines="0 0 1 1; 0.836 0 0.417 1; 1 0 0.771 1; 0.303 0 0 1; 0.167 0 0.137 1; 1 0 0.771 1; 0.303 0 0 1; 0.167 0 0.667 1; 0.834 0 0.21 1; 0 0 1 1" fill="freeze" /></path></g><g><g transform="translate(37,-49)"><g id="i6" transform="translate(-32,34)"><g id="i7" transform="matrix(1,0,0,1.022,0,0)"><path fill="#ecf0f1" d="M32,-52.826C42.806,-52.826,51.565,-44.067,51.565,-33.261C51.565,-22.455,42.806,-13.696,32,-13.696C21.194,-13.696,12.435,-22.455,12.435,-33.261C12.435,-44.067,21.194,-52.826,32,-52.826Z" /></g><g id="i8" transform="matrix(1,0,0,1.022,0,0)"><path fill="#ecf0f1" d="M22.75,-5.625C27.072,-5.625,30.576,-2.121,30.576,2.201C30.576,6.523,27.072,10.027,22.75,10.027C18.428,10.027,14.924,6.523,14.924,2.201C14.924,-2.121,18.428,-5.625,22.75,-5.625Z" /></g></g></g></g></g></g></g></g><g display="none" transform="matrix(1,0,0,1,540,540)" id="i9"><g id="i2"><path d="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z" fill="#ecf0f1"><animate repeatCount="indefinite" attributeName="d" dur="5.542s" begin="0s" calcMode="spline" values="M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M-0.25,0.063C1.563,0.063,-0.5,0,-0.5,0C-0.5,0,1.375,0,0,0C-1.25,0,-0.5,0,-0.5,0C-0.5,0,-1.562,0.063,-0.25,0.063Z; M0,-5C121.503,-5,220,0,220,0C220,0,121.503,5,0,5C-121.503,5,-220,0,-220,0C-220,0,-121.503,-5,0,-5Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M-33.464,64.89C88.039,64.89,186.268,13.89,186.268,13.89C186.268,13.89,87.574,64.89,-33.929,64.89C-155.432,64.89,-253.732,13.89,-253.732,13.89C-253.732,13.89,-154.967,64.89,-33.464,64.89Z; M-51,-84C70.503,-84,169,21,169,21C169,21,70.503,126,-51,126C-172.503,126,-271,21,-271,21C-271,21,-172.503,-84,-51,-84Z; M54,-88C175.503,-88,274,17,274,17C274,17,175.503,122,54,122C-67.503,122,-166,17,-166,17C-166,17,-67.503,-88,54,-88Z; M33.109,101.485C154.612,101.485,253.304,10.485,253.304,10.485C253.304,10.485,154.612,101.485,33.109,101.485C-88.394,101.485,-186.696,10.485,-186.696,10.485C-186.696,10.485,-88.394,101.485,33.109,101.485Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,-105C121.503,-105,220,0,220,0C220,0,121.503,105,0,105C-121.503,105,-220,0,-220,0C-220,0,-121.503,-105,0,-105Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z; M0,60C121.503,60,220,0,220,0C220,0,121.503,60,0,60C-121.503,60,-220,0,-220,0C-220,0,-121.503,60,0,60Z" keyTimes="0; 0.045113; 0.075188; 0.225564; 0.330827; 0.428571; 0.609023; 0.69173; 0.789474; 0.857143; 0.947368; 1" keySplines="0 0 1 1; 1 0 0.19 1; 0.727 0 0 1; 0.583 0 0.833 0.833; 0.167 0.167 0.298 1; 0.765 0 0.317 1; 0.671 0 0.833 0.833; 0.167 0.167 0.323 1; 0.167 0 0.667 1; 0.834 0 0.21 1; 0 0 1 1" fill="freeze" /></path></g></g></svg>
       </div>
 
-      <div class="note-card" style="left:50%; top:8%; --pin-color:#ff6a6a; --pin-color-dark:#b32b2b;">
+      <div class="note-card" style="left:50%; top:4%; --pin-color:#ff6a6a; --pin-color-dark:#b32b2b;">
         <div class="note-pin" aria-hidden="true"></div>
         <p class="note-num">01</p>
-        <h3 class="note-title">Languages &amp; Data</h3>
-        <p class="note-desc">Python, C++, SQL, R, Excel, Tableau, SAS — plus Git for version control. The core toolkit for working with data end to end.</p>
+        <h3 class="note-title">Programming &amp; Data Tools</h3>
+        <div class="skill-chips">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">C++</span>
+          <span class="skill-chip">SQL</span>
+          <span class="skill-chip">SAS</span>
+          <span class="skill-chip">Git/GitHub</span>
+          <span class="skill-chip">Microsoft Excel</span>
+          <span class="skill-chip">R</span>
+          <span class="skill-chip">Tableau</span>
+        </div>
       </div>
 
-      <div class="note-card" style="left:90%; top:50%; --pin-color:#5a8dff; --pin-color-dark:#2648a8;">
+      <div class="note-card" style="left:95%; top:34%; --pin-color:#5a8dff; --pin-color-dark:#2648a8;">
         <div class="note-pin" aria-hidden="true"></div>
         <p class="note-num">02</p>
-        <h3 class="note-title">Web &amp; Backend</h3>
-        <p class="note-desc">FastAPI, React, Vite, Docker, and PostgreSQL — turning models and pipelines into real, deployed applications.</p>
+        <h3 class="note-title">Machine Learning</h3>
+        <div class="skill-chips">
+          <span class="skill-chip">Scikit-learn</span>
+          <span class="skill-chip">Regression</span>
+          <span class="skill-chip">Classification</span>
+          <span class="skill-chip">Decision Trees</span>
+          <span class="skill-chip">Random Forest</span>
+          <span class="skill-chip">XGBoost</span>
+          <span class="skill-chip">Support Vector Machines</span>
+          <span class="skill-chip">Model Evaluation</span>
+        </div>
       </div>
 
-      <div class="note-card" style="left:50%; top:92%; --pin-color:#a374ff; --pin-color-dark:#5b2fa8;">
+      <div class="note-card" style="left:81%; top:90%; --pin-color:#a374ff; --pin-color-dark:#5b2fa8;">
         <div class="note-pin" aria-hidden="true"></div>
         <p class="note-num">03</p>
-        <h3 class="note-title">AI &amp; Automation</h3>
-        <p class="note-desc">n8n multi-agent workflows, the Claude API, Clarifai, and spaCy — turning unstructured input into structured output.</p>
+        <h3 class="note-title">Data Science</h3>
+        <div class="skill-chips">
+          <span class="skill-chip">Pandas</span>
+          <span class="skill-chip">NumPy</span>
+          <span class="skill-chip">Matplotlib</span>
+          <span class="skill-chip">Seaborn</span>
+          <span class="skill-chip">Statistical Analysis</span>
+          <span class="skill-chip">Data Preprocessing</span>
+          <span class="skill-chip">Exploratory Data Analysis (EDA)</span>
+          <span class="skill-chip">Feature Engineering</span>
+        </div>
       </div>
 
-      <div class="note-card" style="left:10%; top:50%; --pin-color:#ff7fb0; --pin-color-dark:#a83566;">
+      <div class="note-card" style="left:19%; top:90%; --pin-color:#ff7fb0; --pin-color-dark:#a83566;">
         <div class="note-pin" aria-hidden="true"></div>
         <p class="note-num">04</p>
-        <h3 class="note-title">Data Science &amp; ML</h3>
-        <p class="note-desc">EDA, feature engineering, regression &amp; classification, model evaluation, and hypothesis testing.</p>
+        <h3 class="note-title">AI</h3>
+        <div class="skill-chips">
+          <span class="skill-chip">n8n (Multi-Agent Workflows)</span>
+          <span class="skill-chip">Multimodal Data Pipelines</span>
+          <span class="skill-chip">Natural Language Processing (NLP)</span>
+          <span class="skill-chip">spaCy</span>
+          <span class="skill-chip">Hugging Face</span>
+          <span class="skill-chip">Anthropic APIs</span>
+          <span class="skill-chip">LLM Applications</span>
+          <span class="skill-chip">Computer Vision</span>
+          <span class="skill-chip">Deep Learning</span>
+          <span class="skill-chip">Neural Networks</span>
+        </div>
+      </div>
+
+      <div class="note-card" style="left:5%; top:34%; --pin-color:#2bd9a0; --pin-color-dark:#0e7a58;">
+        <div class="note-pin" aria-hidden="true"></div>
+        <p class="note-num">05</p>
+        <h3 class="note-title">Web Development</h3>
+        <div class="skill-chips">
+          <span class="skill-chip">FastAPI</span>
+          <span class="skill-chip">React</span>
+          <span class="skill-chip">Vite</span>
+          <span class="skill-chip">REST APIs</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">PostgreSQL/SQLite</span>
+          <span class="skill-chip">Hugging Face Spaces</span>
+          <span class="skill-chip">Vercel</span>
+          <span class="skill-chip">Cloudflare</span>
+        </div>
       </div>
     </div>
   </section>
@@ -671,7 +706,6 @@
   var iDot = document.getElementById('iDot');
   var skipBtn = document.getElementById('skipBtn');
   var confettiLayer = document.getElementById('confettiLayer');
-  var hubSection = document.getElementById('hub');
   var svgEl = heroEl.querySelector('.hero-illustration svg');
   if (svgEl) svgEl.setAttribute('preserveAspectRatio', 'xMidYMid slice');
 
@@ -730,9 +764,20 @@
 
   function finishIntro(){
     skipBtn.classList.add('hidden');
-    if (hubSection){
-      hubSection.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+
+    if (reduced){
+      heroEl.style.display = 'none';
+      document.body.classList.remove('intro-lock');
+      window.scrollTo(0, 0);
+      return;
     }
+
+    heroEl.classList.add('hero-exit');
+    schedule(function(){
+      heroEl.style.display = 'none';
+      document.body.classList.remove('intro-lock');
+      window.scrollTo(0, 0);
+    }, 900);
   }
 
   function leaveSequence(){
@@ -800,37 +845,15 @@
 <script>
 (function(){
   var eyeSvg = document.getElementById('eyeSvg');
-  var irisGroup = document.getElementById('irisGroup');
-  var irisTexture = document.getElementById('irisTexture');
-  if (!eyeSvg || !irisGroup) return;
+  var lookGroup = document.getElementById('eyeLookGroup');
+  if (!eyeSvg || !lookGroup) return;
 
   var reducedEye = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // build iris texture lines once
-  if (irisTexture){
-    var svgNS = 'http://www.w3.org/2000/svg';
-    for (var i = 0; i < 20; i++){
-      var angle = (i / 20) * Math.PI * 2;
-      var r1 = 23, r2 = 45;
-      var x1 = 150 + Math.cos(angle) * r1;
-      var y1 = 100 + Math.sin(angle) * r1;
-      var x2 = 150 + Math.cos(angle) * r2;
-      var y2 = 100 + Math.sin(angle) * r2;
-      var line = document.createElementNS(svgNS, 'line');
-      line.setAttribute('x1', x1.toFixed(1));
-      line.setAttribute('y1', y1.toFixed(1));
-      line.setAttribute('x2', x2.toFixed(1));
-      line.setAttribute('y2', y2.toFixed(1));
-      line.setAttribute('stroke', '#3a2210');
-      line.setAttribute('stroke-width', '1');
-      line.setAttribute('opacity', (0.18 + (i % 3) * 0.08).toFixed(2));
-      irisTexture.appendChild(line);
-    }
-  }
-
   if (reducedEye) return;
 
-  var maxOffset = 13; // user-unit clamp radius for pupil travel
+  var baseX = 540, baseY = 577;   // native resting position of the pupil group
+  var maxX = 100, maxY = 42;      // elliptical clamp so the pupil stays inside the socket
+  var viewW = 540, viewH = 300;   // matches the cropped viewBox of the eye asset
   var ticking = false;
   var lastX = null, lastY = null;
 
@@ -841,13 +864,14 @@
     var cy = rect.top + rect.height / 2;
     var dx = clientX - cx;
     var dy = clientY - cy;
-    var scaleX = 300 / rect.width;
-    var scaleY = 200 / rect.height;
+    var scaleX = viewW / rect.width;
+    var scaleY = viewH / rect.height;
     var ux = dx * scaleX;
     var uy = dy * scaleY;
-    var dist = Math.sqrt(ux * ux + uy * uy);
-    var k = dist > maxOffset ? maxOffset / dist : 1;
-    irisGroup.style.transform = 'translate(' + (ux * k).toFixed(2) + 'px,' + (uy * k).toFixed(2) + 'px)';
+    var nx = ux / maxX, ny = uy / maxY;
+    var mag = Math.sqrt(nx * nx + ny * ny);
+    if (mag > 1){ ux = ux / mag; uy = uy / mag; }
+    lookGroup.setAttribute('transform', 'translate(' + (baseX + ux).toFixed(1) + ',' + (baseY + uy).toFixed(1) + ')');
   }
 
   function onMove(clientX, clientY){
