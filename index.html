@@ -85,74 +85,62 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
 .live-btn.disabled{ opacity:.55; cursor:default; border-color:rgba(215,226,234,0.4); }
 .live-btn.disabled:hover{ background:transparent; }
 
-/* ================= NAVBAR / HERO ================= */
+/* ================= HERO ================= */
 .hero{
   min-height:100svh;
   display:flex; flex-direction:column;
   overflow-x:clip;
   position:relative;
 }
-.navbar{
-  display:flex; justify-content:space-between; align-items:center;
-  padding:1.5rem 1.5rem 0; z-index:20;
-}
-@media(min-width:768px){ .navbar{ padding:2rem 2.5rem 0; } }
-.navbar a{
-  color:#D7E2EA; text-decoration:none; font-weight:500;
-  text-transform:uppercase; letter-spacing:.12em;
-  font-size:clamp(.75rem,1.4vw,1.15rem);
-  transition:opacity .2s ease;
-}
-.navbar a:hover{ opacity:.7; }
-.nav-name{
-  font-weight:600; letter-spacing:.08em; text-transform:uppercase;
-  font-size:clamp(.8rem,1.4vw,1.15rem); color:var(--text-soft);
-}
 
 .hero-mid{
-  flex:1; display:flex; align-items:center; justify-content:center;
-  position:relative; padding:0 4vw;
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative; padding:4.5rem 5vw 2.5rem; gap:2.2rem;
+  max-width:1300px; margin:0 auto; width:100%;
 }
+@media(min-width:900px){
+  .hero-mid{ flex-direction:row; justify-content:space-between; gap:3rem; }
+}
+.hero-text{ display:flex; flex-direction:column; align-items:center; gap:1.3rem; }
+@media(min-width:900px){ .hero-text{ align-items:flex-start; flex:1; } }
+
 .hero-heading-wrap{ overflow:hidden; width:100%; text-align:center; }
 .hero-heading h1{
   font-weight:900; text-transform:uppercase; letter-spacing:-0.02em;
-  line-height:0.92; margin:0;
-  font-size:clamp(2.6rem, 12vw, 8.5rem);
+  line-height:0.95; margin:0;
+  font-size:clamp(2.1rem, 7vw, 5.4rem);
   white-space:normal;
+}
+.hero-role{
+  text-align:center; margin:0;
+  color:var(--text-soft); font-weight:300; text-transform:uppercase;
+  letter-spacing:.3em; opacity:.8;
+  font-size:clamp(.8rem, 1.8vw, 1.2rem);
+}
+@media(min-width:900px){
+  .hero-heading-wrap{ text-align:left; }
+  .hero-role{ text-align:left; }
 }
 
 .hero-portrait{
-  position:absolute; left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:min(78vw, 360px);
-  z-index:10;
+  position:relative;
+  width:min(52vw, 260px);
+  flex-shrink:0;
 }
 @media(min-width:640px){
-  .hero-portrait{ top:auto; bottom:0; transform:translate(-50%,0); width:min(60vw,440px); }
+  .hero-portrait{ width:min(34vw, 300px); }
+}
+@media(min-width:900px){
+  .hero-portrait{ width:min(30vw, 340px); }
 }
 .magnet-outer{ will-change:transform; display:block; }
 .magnet-inner{ display:block; will-change:transform; transition:transform .6s ease-in-out; }
 .portrait-box{
-  aspect-ratio:760/791; width:100%; border-radius:32px;
-  background:radial-gradient(120% 100% at 50% 15%, rgba(182,0,168,0.20), transparent 60%),
-             radial-gradient(120% 90% at 50% 100%, rgba(118,33,176,0.26), transparent 60%),
-             #131313;
+  aspect-ratio:760/791; width:100%;
   display:flex; align-items:center; justify-content:center;
-  position:relative; overflow:hidden;
+  position:relative;
 }
-.portrait-photo{ width:100%; height:100%; object-fit:contain; display:block; }
-
-.hero-bottom{
-  display:flex; justify-content:space-between; align-items:flex-end; gap:1rem;
-  padding:0 1.5rem 2.2rem; position:relative; z-index:15;
-}
-@media(min-width:768px){ .hero-bottom{ padding:0 2.5rem 3rem; } }
-.hero-subtext{
-  color:#D7E2EA; font-weight:300; text-transform:uppercase; letter-spacing:.06em;
-  line-height:1.35; font-size:clamp(.7rem,1.4vw,1.35rem);
-  max-width:190px;
-}
-@media(min-width:768px){ .hero-subtext{ max-width:260px; } }
+.portrait-photo{ width:100%; height:100%; object-fit:contain; display:block; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45)); }
 
 /* ================= MARQUEE ================= */
 .marquee-section{ background:var(--bg); padding:6rem 0 2.5rem; }
@@ -172,11 +160,9 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
 .chip .chip-letter{ font-weight:800; font-size:1.4rem; color:var(--text-soft); }
 .chip .chip-label{ font-size:.62rem; text-transform:uppercase; letter-spacing:.08em; color:rgba(215,226,234,0.65); text-align:center; padding:0 .4rem; }
 
-/* ================= ABOUT ================= */
+/* ================= ABOUT (Services / Industries) ================= */
 .about{
-  min-height:100vh; position:relative; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:7rem 1.3rem; gap:2.5rem; overflow:hidden;
+  position:relative; padding:7rem 1.3rem; overflow:hidden;
 }
 @media(min-width:768px){ .about{ padding:8rem 2.5rem; } }
 .corner-deco{ position:absolute; opacity:.9; }
@@ -193,16 +179,26 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
   font-weight:900; text-transform:uppercase; line-height:0.95; letter-spacing:-0.02em;
   font-size:clamp(2.6rem, 11vw, 8.5rem); margin:0;
 }
-.about-copy{
-  max-width:600px; color:#D7E2EA; font-weight:400; line-height:1.6;
-  font-size:clamp(1rem,2vw,1.3rem);
+.about-grid{
+  position:relative; z-index:2; max-width:1120px; margin:0 auto;
+  display:grid; grid-template-columns:1fr; gap:3.5rem;
 }
-#aboutText .reveal-word{ opacity:.2; transition:opacity .6s ease; display:inline-block; }
-#aboutText.revealed .reveal-word{ opacity:1; }
-.edu-chip{
-  display:inline-flex; align-items:center; gap:.6rem; border:1px solid var(--line);
-  border-radius:999px; padding:.55rem 1.3rem; font-size:.78rem; letter-spacing:.06em;
-  text-transform:uppercase; color:rgba(215,226,234,0.8); background:rgba(215,226,234,0.04);
+@media(min-width:820px){ .about-grid{ grid-template-columns:1fr 1fr; gap:4.5rem; } }
+.col-heading{
+  font-weight:800; text-transform:uppercase; letter-spacing:-0.01em;
+  font-size:clamp(1.7rem, 4.4vw, 2.5rem); margin:0 0 1.6rem;
+}
+.bubble-list{ display:flex; flex-wrap:wrap; gap:.7rem; }
+.bubble{
+  display:inline-flex; align-items:center; gap:.55rem;
+  border:1px solid var(--line); border-radius:999px;
+  padding:.65rem 1.25rem; font-size:.85rem; font-weight:400;
+  color:var(--text-soft); background:rgba(215,226,234,0.04);
+  white-space:nowrap;
+}
+.bubble::before{
+  content:''; width:7px; height:7px; border-radius:50%; flex-shrink:0;
+  background:var(--b-color, #BBCCD7);
 }
 
 /* ================= EXPERIENCE ================= */
@@ -336,16 +332,13 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <nav class="navbar fade-in" style="transition-delay:0s">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
     <div class="hero-mid">
-      <div class="hero-heading-wrap fade-in" style="transition-delay:.15s">
-        <div class="hero-heading"><h1>Hi, I&apos;m Subhiksha</h1></div>
+      <div class="hero-text">
+        <div class="hero-heading-wrap fade-in" style="transition-delay:.15s">
+          <div class="hero-heading"><h1>Hi, I&apos;m Subhiksha Paulraj</h1></div>
+        </div>
+        <p class="hero-role fade-in" style="transition-delay:.28s">Data Scientist &amp; Physicist</p>
+        <a href="mailto:subhiksha.paulraj@gmail.com" class="contact-btn fade-in" style="transition-delay:.5s">Contact Me</a>
       </div>
 
       <div class="hero-portrait fade-in" style="transition-delay:.6s">
@@ -357,11 +350,6 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="hero-bottom">
-      <p class="hero-subtext fade-in" style="transition-delay:.35s">an ai/ml engineer driven by turning messy data into intelligent, working products</p>
-      <a href="mailto:subhiksha.paulraj@gmail.com" class="contact-btn fade-in" style="transition-delay:.5s">Contact Me</a>
     </div>
   </section>
 
@@ -390,15 +378,31 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
       <svg viewBox="0 0 100 100" fill="none"><g stroke="#7621B0" stroke-width="1.2"><ellipse cx="50" cy="50" rx="46" ry="18"/><ellipse cx="50" cy="50" rx="18" ry="46"/></g><circle cx="50" cy="50" r="4" fill="#BBCCD7"/></svg>
     </div>
 
-    <h2 class="hero-heading section-heading fade-in" style="transition-delay:0s">About Me</h2>
+    <div class="about-grid">
+      <div class="about-col fade-in x-left" style="transition-delay:0s">
+        <h3 class="col-heading hero-heading">Services</h3>
+        <div class="bubble-list">
+          <span class="bubble" style="--b-color:#B600A8">Multi-Agent AI Workflow Automation</span>
+          <span class="bubble" style="--b-color:#7621B0">LLM &amp; Prompt Pipeline Design</span>
+          <span class="bubble" style="--b-color:#BE4C00">Machine Learning Model Development</span>
+          <span class="bubble" style="--b-color:#BBCCD7">Full-Stack AI Product Development</span>
+          <span class="bubble" style="--b-color:#B600A8">Computer Vision &amp; NLP Integration</span>
+          <span class="bubble" style="--b-color:#7621B0">Data Pipeline &amp; ETL Automation</span>
+          <span class="bubble" style="--b-color:#BE4C00">Data Analysis &amp; Reporting</span>
+        </div>
+      </div>
 
-    <p class="about-copy" id="aboutText">I'm a data science student and AI/ML engineer who loves turning ambiguous problems into working systems, from multi-agent automations to full-stack apps used by real researchers and communities. I care about clean pipelines, honest evaluation, and shipping things people actually use. Let's build something intelligent together.</p>
-
-    <div class="fade-in" style="transition-delay:.2s">
-      <span class="edu-chip">B.S. Data Science with Physics · UT Arlington · 2023–2027</span>
+      <div class="about-col fade-in x-right" style="transition-delay:.15s">
+        <h3 class="col-heading hero-heading">Industries Worked With</h3>
+        <div class="bubble-list">
+          <span class="bubble" style="--b-color:#BBCCD7">E-Commerce &amp; Retail</span>
+          <span class="bubble" style="--b-color:#B600A8">Health &amp; Nutrition Tech</span>
+          <span class="bubble" style="--b-color:#7621B0">Education &amp; EdTech</span>
+          <span class="bubble" style="--b-color:#BE4C00">Software &amp; Technology</span>
+          <span class="bubble" style="--b-color:#BBCCD7">Scientific Research &amp; Academia</span>
+        </div>
+      </div>
     </div>
-
-    <a href="mailto:subhiksha.paulraj@gmail.com" class="contact-btn fade-in" style="transition-delay:.3s">Contact Me</a>
   </section>
 
   <!-- ============ EXPERIENCE ============ -->
@@ -758,27 +762,6 @@ html,body{ background:var(--bg); margin:0; padding:0; scroll-behavior:smooth; }
     faders.forEach(function(f){ f.classList.add('visible'); });
   }
 
-  // ---------- about paragraph word reveal ----------
-  var aboutText = document.getElementById('aboutText');
-  if (aboutText){
-    var words = aboutText.textContent.trim().split(/\s+/);
-    aboutText.innerHTML = words.map(function(w, i){
-      return '<span class="reveal-word" style="transition-delay:' + Math.min(i * 14, 900) + 'ms">' + w + '</span>';
-    }).join(' ');
-    if ('IntersectionObserver' in window && !reduceMotion){
-      var revealObs = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if (entry.isIntersecting){
-            entry.target.classList.add('revealed');
-            revealObs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      revealObs.observe(aboutText);
-    } else {
-      aboutText.classList.add('revealed');
-    }
-  }
 
   // ---------- hero magnet effect ----------
   var magnet = document.getElementById('heroMagnet');
