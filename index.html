@@ -242,8 +242,7 @@ h1.hero-heading{
   color:rgba(215,226,234,.75);
 }
 
-.industry-blocks{ display:flex; gap:.8rem; align-items:flex-start; }
-.industry-col{ display:flex; flex-direction:column; gap:.8rem; flex:1; min-width:0; }
+.industry-blocks{ display:flex; flex-direction:column; gap:.8rem; }
 .industry-block{
   border-radius:16px; padding:1.1rem 1.3rem;
   border:1px solid color-mix(in srgb, var(--b-color, #BBCCD7) 45%, transparent);
@@ -354,51 +353,49 @@ h1.hero-heading{
 .stack-card-holder{ height:88vh; }
 .stack-card{
   position:sticky; top:6.5rem;
-  border-radius:34px; border:2px solid #D7E2EA; background:var(--bg);
+  border-radius:34px; border:2px solid var(--card-color, #D7E2EA); background:var(--bg);
   padding:1.1rem; will-change:transform;
   transform-origin:top center;
-  transition:transform .1s linear;
+  transition:transform .1s linear, box-shadow .3s ease;
+  box-shadow:0 24px 60px -32px color-mix(in srgb, var(--card-color, #D7E2EA) 65%, transparent);
 }
 @media(min-width:768px){ .stack-card{ border-radius:44px; padding:1.8rem; top:8rem; } }
 .card-top{
   display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.4rem; margin-bottom:1.2rem;
 }
-.card-num{ font-weight:900; font-size:clamp(2.4rem,7vw,4.6rem); line-height:.9; color:var(--text-soft); }
-.card-meta{ display:flex; flex-direction:column; gap:.15rem; flex:1; min-width:150px; }
-.card-cat{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(215,226,234,.55); }
-.card-title{ font-weight:600; text-transform:uppercase; font-size:clamp(1.05rem,2.6vw,1.8rem); letter-spacing:.01em; }
-.card-desc{ font-weight:300; font-size:clamp(.82rem,1.5vw,1rem); line-height:1.55; color:rgba(215,226,234,.8); max-width:640px; margin:.6rem 0 0; }
-.card-bullets{ margin:.7rem 0 0; padding:0; display:flex; flex-direction:column; gap:.35rem; }
-.card-bullets li{ list-style:none; font-size:.82rem; font-weight:300; color:rgba(215,226,234,.75); padding-left:1rem; position:relative; }
-.card-bullets li::before{ content:'\25B8'; position:absolute; left:0; color:var(--accent-c); }
-
-.flow{ margin:1.3rem 0; overflow-x:auto; }
-.flow svg{ display:block; min-width:560px; width:100%; height:auto; }
-.flow-node rect{ fill:#161616; stroke:rgba(215,226,234,.4); stroke-width:1.4; }
-.flow-node text{ fill:#D7E2EA; font-family:'Kanit',sans-serif; font-size:11px; font-weight:500; }
-.flow-line{ stroke:rgba(215,226,234,.45); stroke-width:1.4; fill:none; }
-.flow-tag text{ fill:rgba(215,226,234,.45); font-size:9px; letter-spacing:.05em; text-transform:uppercase; }
-
-.card-media{ display:grid; grid-template-columns:40% 60%; gap:.7rem; }
-.media-col-left{ display:flex; flex-direction:column; gap:.7rem; }
-.placeholder{
-  border-radius:22px; border:2px dashed rgba(215,226,234,0.28);
-  background:linear-gradient(160deg, rgba(182,0,168,0.08), rgba(190,76,0,0.06));
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem;
-  color:rgba(215,226,234,0.55); text-align:center; padding:.6rem;
+.card-num{
+  font-weight:900; font-size:clamp(2.4rem,7vw,4.6rem); line-height:.9;
+  background:linear-gradient(160deg, var(--card-color, var(--text-soft)), color-mix(in srgb, var(--card-color, var(--text-soft)) 55%, white));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
 }
-@media(min-width:768px){ .placeholder{ border-radius:30px; } }
-.placeholder svg{ width:26px; height:26px; opacity:.6; }
-.placeholder span{ font-size:.62rem; text-transform:uppercase; letter-spacing:.08em; }
-.ph-top{ height:clamp(90px,14vw,180px); }
-.ph-bottom{ height:clamp(120px,18vw,260px); }
-.ph-right{ height:clamp(220px,32vw,440px); }
+.card-meta{ display:flex; flex-direction:column; gap:.15rem; flex:1; min-width:150px; }
+.card-cat{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--card-color, rgba(215,226,234,.7)); font-weight:600; }
+.card-title{ font-weight:600; text-transform:uppercase; font-size:clamp(1.05rem,2.6vw,1.8rem); letter-spacing:.01em; }
+.card-desc{ font-weight:400; font-size:clamp(.88rem,1.6vw,1.05rem); line-height:1.6; color:rgba(255,255,255,.95); max-width:680px; margin:.6rem 0 0; }
+.card-bullets{ margin:.8rem 0 0; padding:0; display:flex; flex-direction:column; gap:.4rem; }
+.card-bullets li{ list-style:none; font-size:.9rem; font-weight:400; color:rgba(255,255,255,.92); padding-left:1.1rem; position:relative; }
+.card-bullets li::before{ content:'\25B8'; position:absolute; left:0; color:var(--card-color, var(--accent-c)); }
+.card-bullets li strong{ font-weight:700; color:color-mix(in srgb, var(--card-color, var(--accent-d)) 60%, white); }
+.stack-card .live-btn:not(.disabled){ border-color:var(--card-color, var(--text-soft)); color:var(--card-color, var(--text-soft)); }
+.stack-card .live-btn:not(.disabled):hover{ background:color-mix(in srgb, var(--card-color, var(--text-soft)) 14%, transparent); }
+
+.flow{ margin:1.8rem 0 .5rem; overflow-x:auto; }
+.flow svg{ display:block; min-width:720px; width:100%; height:auto; }
+.flow-node rect{ fill:#181818; stroke:var(--card-color, rgba(215,226,234,.55)); stroke-width:2; }
+.flow-node text{ fill:#F5F8FA; font-family:'Kanit',sans-serif; font-size:14px; font-weight:600; }
+.flow-line{ stroke:var(--card-color, rgba(215,226,234,.6)); stroke-width:2.4; fill:none; }
+.flow-tag text{ fill:var(--card-color, rgba(215,226,234,.6)); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.flow-icon{ fill:none; stroke:var(--card-color, #D7E2EA); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.step-badge circle{ fill:var(--card-color, #D7E2EA); }
+.step-badge text{ fill:#0C0C0C; font-family:'Kanit',sans-serif; font-size:13px; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+.flow-node.final rect{ fill:var(--card-color, #D7E2EA); stroke:var(--card-color, #D7E2EA); }
+.flow-node.final text{ fill:#0C0C0C; font-weight:700; }
+.flow-node.final .flow-icon{ stroke:#0C0C0C; }
 
 /* ================= CONTACT / FOOTER ================= */
 .contact-section{ background:var(--bg); padding:7rem 1.3rem 3rem; text-align:center; position:relative; z-index:2; }
 @media(min-width:768px){ .contact-section{ padding:9rem 2.5rem 3.5rem; } }
-.contact-section .section-heading{ margin-bottom:1.2rem; }
-.contact-lead{ max-width:520px; margin:0 auto 2.6rem; color:rgba(215,226,234,.75); font-weight:300; font-size:clamp(.9rem,1.6vw,1.15rem); line-height:1.5; }
+.contact-section .section-heading{ margin-bottom:2.4rem; }
 .contact-actions{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:1rem; margin-bottom:4rem; }
 .contact-actions .live-btn{ display:inline-flex; }
 .footer-bar{ display:flex; flex-direction:column; gap:.5rem; align-items:center; border-top:1px solid var(--line); padding-top:1.6rem; color:rgba(215,226,234,.45); font-size:.75rem; letter-spacing:.04em; }
@@ -406,12 +403,30 @@ h1.hero-heading{
 
 <div class="page" id="top">
 
-  <!-- global svg defs (arrowhead marker reused by all flowcharts) -->
+  <!-- global svg defs (icons + arrow markers reused by all flowcharts) -->
   <svg width="0" height="0" style="position:absolute">
     <defs>
-      <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-        <path d="M0,0 L6,3 L0,6 Z" fill="rgba(215,226,234,.55)"></path>
-      </marker>
+      <marker id="arrow-magenta" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#FF3D9A"></path></marker>
+      <marker id="arrow-teal" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#17D9C4"></path></marker>
+      <marker id="arrow-orange" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#FF8A3D"></path></marker>
+      <marker id="arrow-blue" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4C8DFF"></path></marker>
+      <marker id="arrow-violet" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#A855F7"></path></marker>
+
+      <g id="ic-upload"><path d="M12 15V4M12 4l-4 4M12 4l4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></g>
+      <g id="ic-eye"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></g>
+      <g id="ic-database"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></g>
+      <g id="ic-chart"><rect x="4" y="14" width="3.5" height="6" rx="1"/><rect x="10.2" y="9" width="3.5" height="11" rx="1"/><rect x="16.4" y="4" width="3.5" height="16" rx="1"/></g>
+      <g id="ic-target"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></g>
+      <g id="ic-agent"><rect x="5" y="9" width="14" height="10" rx="3"/><circle cx="9.5" cy="14" r="1.3" fill="currentColor" stroke="none"/><circle cx="14.5" cy="14" r="1.3" fill="currentColor" stroke="none"/><path d="M12 9V5"/><circle cx="12" cy="3.5" r="1.5"/></g>
+      <g id="ic-people"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/><path d="M14.5 14.3c2.6.3 4.5 2.6 4.5 5.7"/></g>
+      <g id="ic-layout"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M9 9v11"/></g>
+      <g id="ic-rocket"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-1 4H8s-1-2-1-4c0-4 2-8 5-10Z"/><circle cx="12" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M8 16l-3 5M16 16l3 5"/></g>
+      <g id="ic-cloud"><path d="M7 18a4.5 4.5 0 0 1-.5-8.97A5.5 5.5 0 0 1 17 8.5a4 4 0 0 1-1 7.9H7Z"/></g>
+      <g id="ic-brain"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="16" r="2"/><circle cx="18" cy="16" r="2"/><path d="M12 8v4M12 12l-4.5 3M12 12l4.5 3"/></g>
+      <g id="ic-branch"><path d="M12 4v6M12 10l-5 4M12 10l5 4M7 14v4M17 14v4"/><circle cx="12" cy="4" r="1.6" fill="currentColor" stroke="none"/><circle cx="7" cy="18" r="1.6" fill="currentColor" stroke="none"/><circle cx="17" cy="18" r="1.6" fill="currentColor" stroke="none"/></g>
+      <g id="ic-filter"><path d="M4 5h16l-6 8v6l-4-2v-4L4 5Z"/></g>
+      <g id="ic-atom"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)"/></g>
+      <g id="ic-output"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/></g>
     </defs>
   </svg>
 
@@ -500,15 +515,11 @@ h1.hero-heading{
       <div class="about-col fade-in x-right" style="transition-delay:.15s">
         <h3 class="col-heading hero-heading">Where I&apos;ve Applied It</h3>
         <div class="industry-blocks">
-          <div class="industry-col">
-            <span class="industry-block" style="--b-color:#BBCCD7">Retail &amp; E-Commerce</span>
-            <span class="industry-block" style="--b-color:#7621B0">Education</span>
-          </div>
-          <div class="industry-col">
-            <span class="industry-block" style="--b-color:#BE4C00">Physics &amp; Scientific Computing</span>
-            <span class="industry-block" style="--b-color:#B600A8">Nutrition &amp; Research</span>
-            <span class="industry-block" style="--b-color:#BBCCD7">Software Engineering</span>
-          </div>
+          <span class="industry-block" style="--b-color:#BBCCD7">Retail &amp; E-Commerce</span>
+          <span class="industry-block" style="--b-color:#7621B0">Education</span>
+          <span class="industry-block" style="--b-color:#BE4C00">Physics &amp; Scientific Computing</span>
+          <span class="industry-block" style="--b-color:#B600A8">Nutrition &amp; Research</span>
+          <span class="industry-block" style="--b-color:#BBCCD7">Software Engineering</span>
         </div>
       </div>
     </div>
@@ -657,7 +668,7 @@ h1.hero-heading{
 
       <!-- Card 01 : GrubLens -->
       <div class="stack-card-holder">
-        <div class="stack-card" data-stack-card style="top:6.5rem">
+        <div class="stack-card" data-stack-card style="top:6.5rem; --card-color:#FF3D9A;">
           <div class="card-top">
             <div class="card-num">01</div>
             <div class="card-meta">
@@ -674,32 +685,49 @@ h1.hero-heading{
           </ul>
 
           <div class="flow">
-            <svg viewBox="0 0 900 120">
-              <g class="flow-node"><rect x="10" y="30" width="140" height="56" rx="14"/><text x="80" y="53" text-anchor="middle">Photo</text><text x="80" y="69" text-anchor="middle">Upload</text></g>
-              <line class="flow-line" x1="150" y1="58" x2="200" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="200" y="30" width="150" height="56" rx="14"/><text x="275" y="53" text-anchor="middle">Clarifai</text><text x="275" y="69" text-anchor="middle">Vision Model</text></g>
-              <line class="flow-line" x1="350" y1="58" x2="400" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="400" y="30" width="150" height="56" rx="14"/><text x="475" y="53" text-anchor="middle">spaCy NLP</text><text x="475" y="69" text-anchor="middle">+ USDA Lookup</text></g>
-              <line class="flow-line" x1="550" y1="58" x2="600" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="600" y="30" width="150" height="56" rx="14"/><text x="675" y="53" text-anchor="middle">Nutrient</text><text x="675" y="69" text-anchor="middle">Report (20+)</text></g>
-              <line class="flow-line" x1="750" y1="58" x2="800" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="800" y="30" width="90" height="56" rx="14"/><text x="845" y="53" text-anchor="middle">Dashboard</text><text x="845" y="69" text-anchor="middle">+ Excel</text></g>
+            <svg viewBox="0 0 900 145">
+              <g class="flow-node">
+                <rect x="10" y="28" width="150" height="88" rx="18"/>
+                <use href="#ic-upload" class="flow-icon" transform="translate(72,44) scale(1.083)"/>
+                <text x="85" y="90" text-anchor="middle">Photo</text><text x="85" y="109" text-anchor="middle">Upload</text>
+                <g class="step-badge"><circle cx="10" cy="28" r="13"/><text x="10" y="28">1</text></g>
+              </g>
+              <line class="flow-line" x1="160" y1="72" x2="195" y2="72" marker-end="url(#arrow-magenta)"/>
+              <g class="flow-node">
+                <rect x="195" y="28" width="160" height="88" rx="18"/>
+                <use href="#ic-eye" class="flow-icon" transform="translate(262,44) scale(1.083)"/>
+                <text x="275" y="90" text-anchor="middle">Clarifai</text><text x="275" y="109" text-anchor="middle">Vision Model</text>
+                <g class="step-badge"><circle cx="195" cy="28" r="13"/><text x="195" y="28">2</text></g>
+              </g>
+              <line class="flow-line" x1="355" y1="72" x2="390" y2="72" marker-end="url(#arrow-magenta)"/>
+              <g class="flow-node">
+                <rect x="390" y="28" width="170" height="88" rx="18"/>
+                <use href="#ic-database" class="flow-icon" transform="translate(462,44) scale(1.083)"/>
+                <text x="475" y="90" text-anchor="middle">spaCy NLP</text><text x="475" y="109" text-anchor="middle">+ USDA Lookup</text>
+                <g class="step-badge"><circle cx="390" cy="28" r="13"/><text x="390" y="28">3</text></g>
+              </g>
+              <line class="flow-line" x1="560" y1="72" x2="595" y2="72" marker-end="url(#arrow-magenta)"/>
+              <g class="flow-node">
+                <rect x="595" y="28" width="170" height="88" rx="18"/>
+                <use href="#ic-chart" class="flow-icon" transform="translate(667,44) scale(1.083)"/>
+                <text x="680" y="90" text-anchor="middle">Nutrient</text><text x="680" y="109" text-anchor="middle">Report (20+)</text>
+                <g class="step-badge"><circle cx="595" cy="28" r="13"/><text x="595" y="28">4</text></g>
+              </g>
+              <line class="flow-line" x1="765" y1="72" x2="800" y2="72" marker-end="url(#arrow-magenta)"/>
+              <g class="flow-node final">
+                <rect x="800" y="28" width="100" height="88" rx="18"/>
+                <use href="#ic-output" class="flow-icon" transform="translate(837,44) scale(1.083)"/>
+                <text x="850" y="90" text-anchor="middle">Dashboard</text><text x="850" y="109" text-anchor="middle">+ Excel</text>
+                <g class="step-badge"><circle cx="800" cy="28" r="13"/><text x="800" y="28">5</text></g>
+              </g>
             </svg>
-          </div>
-
-          <div class="card-media">
-            <div class="media-col-left">
-              <div class="placeholder ph-top"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Upload screen</span></div>
-              <div class="placeholder ph-bottom"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Nutrient dashboard</span></div>
-            </div>
-            <div class="placeholder ph-right"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Full app preview</span></div>
           </div>
         </div>
       </div>
 
       <!-- Card 02 : Im4imagine -->
       <div class="stack-card-holder">
-        <div class="stack-card" data-stack-card style="top:7.3rem">
+        <div class="stack-card" data-stack-card style="top:7.3rem; --card-color:#17D9C4;">
           <div class="card-top">
             <div class="card-num">02</div>
             <div class="card-meta">
@@ -716,32 +744,44 @@ h1.hero-heading{
           </ul>
 
           <div class="flow">
-            <svg viewBox="0 0 900 150">
-              <g class="flow-node"><rect x="30" y="47" width="160" height="56" rx="14"/><text x="110" y="70" text-anchor="middle">Stakeholder</text><text x="110" y="86" text-anchor="middle">Feedback</text></g>
-              <line class="flow-line" x1="190" y1="75" x2="260" y2="75" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="260" y="47" width="180" height="56" rx="14"/><text x="350" y="70" text-anchor="middle">Content &amp; Nav</text><text x="350" y="86" text-anchor="middle">System</text></g>
-              <line class="flow-line" x1="440" y1="75" x2="510" y2="75" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="510" y="47" width="160" height="56" rx="14"/><text x="590" y="70" text-anchor="middle">Shipped</text><text x="590" y="86" text-anchor="middle">Update</text></g>
-              <line class="flow-line" x1="670" y1="75" x2="740" y2="75" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="740" y="47" width="140" height="56" rx="14"/><text x="810" y="70" text-anchor="middle">Production</text><text x="810" y="86" text-anchor="middle">Platform</text></g>
-              <path class="flow-line" d="M590,47 C590,10 200,10 110,44" marker-end="url(#arrowhead)"/>
-              <g class="flow-tag"><text x="350" y="20" text-anchor="middle">10+ weekly iteration cycles</text></g>
+            <svg viewBox="0 0 900 165">
+              <g class="flow-tag"><text x="360" y="20" text-anchor="middle">10+ weekly iteration cycles</text></g>
+              <path class="flow-line" d="M607,60 C607,16 200,16 112,52" marker-end="url(#arrow-teal)"/>
+              <g class="flow-node">
+                <rect x="20" y="60" width="185" height="88" rx="18"/>
+                <use href="#ic-people" class="flow-icon" transform="translate(99,76) scale(1.083)"/>
+                <text x="112" y="122" text-anchor="middle">Stakeholder</text><text x="112" y="141" text-anchor="middle">Feedback</text>
+                <g class="step-badge"><circle cx="20" cy="60" r="13"/><text x="20" y="60">1</text></g>
+              </g>
+              <line class="flow-line" x1="205" y1="104" x2="255" y2="104" marker-end="url(#arrow-teal)"/>
+              <g class="flow-node">
+                <rect x="255" y="60" width="210" height="88" rx="18"/>
+                <use href="#ic-layout" class="flow-icon" transform="translate(347,76) scale(1.083)"/>
+                <text x="360" y="122" text-anchor="middle">Content &amp; Nav</text><text x="360" y="141" text-anchor="middle">System</text>
+                <g class="step-badge"><circle cx="255" cy="60" r="13"/><text x="255" y="60">2</text></g>
+              </g>
+              <line class="flow-line" x1="465" y1="104" x2="515" y2="104" marker-end="url(#arrow-teal)"/>
+              <g class="flow-node">
+                <rect x="515" y="60" width="185" height="88" rx="18"/>
+                <use href="#ic-rocket" class="flow-icon" transform="translate(594,76) scale(1.083)"/>
+                <text x="607" y="122" text-anchor="middle">Shipped</text><text x="607" y="141" text-anchor="middle">Update</text>
+                <g class="step-badge"><circle cx="515" cy="60" r="13"/><text x="515" y="60">3</text></g>
+              </g>
+              <line class="flow-line" x1="700" y1="104" x2="750" y2="104" marker-end="url(#arrow-teal)"/>
+              <g class="flow-node final">
+                <rect x="750" y="60" width="150" height="88" rx="18"/>
+                <use href="#ic-cloud" class="flow-icon" transform="translate(812,76) scale(1.083)"/>
+                <text x="825" y="122" text-anchor="middle">Production</text><text x="825" y="141" text-anchor="middle">Platform</text>
+                <g class="step-badge"><circle cx="750" cy="60" r="13"/><text x="750" y="60">4</text></g>
+              </g>
             </svg>
-          </div>
-
-          <div class="card-media">
-            <div class="media-col-left">
-              <div class="placeholder ph-top"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Homepage</span></div>
-              <div class="placeholder ph-bottom"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Resource library</span></div>
-            </div>
-            <div class="placeholder ph-right"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Site walkthrough</span></div>
           </div>
         </div>
       </div>
 
       <!-- Card 03 : Wayfair multi-agent -->
       <div class="stack-card-holder">
-        <div class="stack-card" data-stack-card style="top:8.1rem">
+        <div class="stack-card" data-stack-card style="top:8.1rem; --card-color:#FF8A3D;">
           <div class="card-top">
             <div class="card-num">03</div>
             <div class="card-meta">
@@ -757,33 +797,50 @@ h1.hero-heading{
           </ul>
 
           <div class="flow">
-            <svg viewBox="0 0 900 160">
-              <g class="flow-node"><rect x="10" y="52" width="140" height="56" rx="14"/><text x="80" y="75" text-anchor="middle">Market /</text><text x="80" y="91" text-anchor="middle">Style Input</text></g>
-              <line class="flow-line" x1="150" y1="80" x2="215" y2="35" marker-end="url(#arrowhead)"/>
-              <line class="flow-line" x1="150" y1="80" x2="215" y2="112" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="215" y="7" width="180" height="52" rx="14"/><text x="305" y="28" text-anchor="middle">Trend Discovery</text><text x="305" y="44" text-anchor="middle">Agent</text></g>
-              <g class="flow-node"><rect x="215" y="86" width="180" height="52" rx="14"/><text x="305" y="107" text-anchor="middle">Competitor</text><text x="305" y="123" text-anchor="middle">Monitoring Agent</text></g>
-              <line class="flow-line" x1="395" y1="33" x2="460" y2="80" marker-end="url(#arrowhead)"/>
-              <line class="flow-line" x1="395" y1="112" x2="460" y2="80" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="460" y="52" width="180" height="56" rx="14"/><text x="550" y="75" text-anchor="middle">Content Insight</text><text x="550" y="91" text-anchor="middle">Agent (LLM)</text></g>
-              <line class="flow-line" x1="640" y1="80" x2="700" y2="80" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="700" y="52" width="190" height="56" rx="14"/><text x="795" y="75" text-anchor="middle">Structured Output</text><text x="795" y="91" text-anchor="middle">(Visual + Text)</text></g>
+            <svg viewBox="0 0 900 250">
+              <g class="flow-node">
+                <rect x="10" y="80" width="170" height="88" rx="18"/>
+                <use href="#ic-upload" class="flow-icon" transform="translate(82,96) scale(1.083)"/>
+                <text x="95" y="142" text-anchor="middle">Market /</text><text x="95" y="161" text-anchor="middle">Style Input</text>
+                <g class="step-badge"><circle cx="10" cy="80" r="13"/><text x="10" y="80">1</text></g>
+              </g>
+              <line class="flow-line" x1="180" y1="124" x2="230" y2="48" marker-end="url(#arrow-orange)"/>
+              <line class="flow-line" x1="180" y1="124" x2="230" y2="200" marker-end="url(#arrow-orange)"/>
+              <g class="flow-node">
+                <rect x="230" y="8" width="220" height="80" rx="18"/>
+                <use href="#ic-agent" class="flow-icon" transform="translate(327,22) scale(1.083)"/>
+                <text x="340" y="64" text-anchor="middle">Trend Discovery</text><text x="340" y="82" text-anchor="middle">Agent</text>
+                <g class="step-badge"><circle cx="230" cy="8" r="13"/><text x="230" y="8">2</text></g>
+              </g>
+              <g class="flow-node">
+                <rect x="230" y="160" width="220" height="80" rx="18"/>
+                <use href="#ic-agent" class="flow-icon" transform="translate(327,174) scale(1.083)"/>
+                <text x="340" y="216" text-anchor="middle">Competitor</text><text x="340" y="234" text-anchor="middle">Monitoring Agent</text>
+                <g class="step-badge"><circle cx="230" cy="160" r="13"/><text x="230" y="160">3</text></g>
+              </g>
+              <line class="flow-line" x1="450" y1="48" x2="500" y2="100" marker-end="url(#arrow-orange)"/>
+              <line class="flow-line" x1="450" y1="200" x2="500" y2="148" marker-end="url(#arrow-orange)"/>
+              <g class="flow-node">
+                <rect x="500" y="80" width="210" height="88" rx="18"/>
+                <use href="#ic-brain" class="flow-icon" transform="translate(592,96) scale(1.083)"/>
+                <text x="605" y="142" text-anchor="middle">Content Insight</text><text x="605" y="161" text-anchor="middle">Agent (LLM)</text>
+                <g class="step-badge"><circle cx="500" cy="80" r="13"/><text x="500" y="80">4</text></g>
+              </g>
+              <line class="flow-line" x1="710" y1="124" x2="740" y2="124" marker-end="url(#arrow-orange)"/>
+              <g class="flow-node final">
+                <rect x="740" y="80" width="160" height="88" rx="18"/>
+                <use href="#ic-output" class="flow-icon" transform="translate(807,96) scale(1.083)"/>
+                <text x="820" y="142" text-anchor="middle">Structured Output</text><text x="820" y="161" text-anchor="middle">(Visual + Text)</text>
+                <g class="step-badge"><circle cx="740" cy="80" r="13"/><text x="740" y="80">5</text></g>
+              </g>
             </svg>
-          </div>
-
-          <div class="card-media">
-            <div class="media-col-left">
-              <div class="placeholder ph-top"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Workflow canvas</span></div>
-              <div class="placeholder ph-bottom"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Agent output log</span></div>
-            </div>
-            <div class="placeholder ph-right"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Screenshot (NDA-safe)</span></div>
           </div>
         </div>
       </div>
 
       <!-- Card 04 : Software Defect Classification -->
       <div class="stack-card-holder">
-        <div class="stack-card" data-stack-card style="top:8.9rem">
+        <div class="stack-card" data-stack-card style="top:8.9rem; --card-color:#4C8DFF;">
           <div class="card-top">
             <div class="card-num">04</div>
             <div class="card-meta">
@@ -799,30 +856,42 @@ h1.hero-heading{
           </ul>
 
           <div class="flow">
-            <svg viewBox="0 0 900 120">
-              <g class="flow-node"><rect x="10" y="30" width="150" height="56" rx="14"/><text x="85" y="53" text-anchor="middle">Raw</text><text x="85" y="69" text-anchor="middle">Data</text></g>
-              <line class="flow-line" x1="160" y1="58" x2="215" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="215" y="30" width="180" height="56" rx="14"/><text x="305" y="53" text-anchor="middle">Feature</text><text x="305" y="69" text-anchor="middle">Engineering</text></g>
-              <line class="flow-line" x1="395" y1="58" x2="450" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="450" y="30" width="170" height="56" rx="14"/><text x="535" y="53" text-anchor="middle">Random Forest /</text><text x="535" y="69" text-anchor="middle">Gradient Boosting</text></g>
-              <line class="flow-line" x1="620" y1="58" x2="675" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="675" y="30" width="130" height="56" rx="14"/><text x="740" y="53" text-anchor="middle">89%</text><text x="740" y="69" text-anchor="middle">Accuracy</text></g>
+            <svg viewBox="0 0 900 145">
+              <g class="flow-node">
+                <rect x="10" y="28" width="170" height="88" rx="18"/>
+                <use href="#ic-database" class="flow-icon" transform="translate(82,44) scale(1.083)"/>
+                <text x="95" y="90" text-anchor="middle">Raw</text><text x="95" y="109" text-anchor="middle">Data</text>
+                <g class="step-badge"><circle cx="10" cy="28" r="13"/><text x="10" y="28">1</text></g>
+              </g>
+              <line class="flow-line" x1="180" y1="72" x2="215" y2="72" marker-end="url(#arrow-blue)"/>
+              <g class="flow-node">
+                <rect x="215" y="28" width="200" height="88" rx="18"/>
+                <use href="#ic-filter" class="flow-icon" transform="translate(302,44) scale(1.083)"/>
+                <text x="315" y="90" text-anchor="middle">Feature</text><text x="315" y="109" text-anchor="middle">Engineering</text>
+                <g class="step-badge"><circle cx="215" cy="28" r="13"/><text x="215" y="28">2</text></g>
+              </g>
+              <line class="flow-line" x1="415" y1="72" x2="450" y2="72" marker-end="url(#arrow-blue)"/>
+              <g class="flow-node">
+                <rect x="450" y="28" width="210" height="88" rx="18"/>
+                <use href="#ic-branch" class="flow-icon" transform="translate(542,44) scale(1.083)"/>
+                <text x="555" y="90" text-anchor="middle">Random Forest /</text><text x="555" y="109" text-anchor="middle">Gradient Boosting</text>
+                <g class="step-badge"><circle cx="450" cy="28" r="13"/><text x="450" y="28">3</text></g>
+              </g>
+              <line class="flow-line" x1="660" y1="72" x2="695" y2="72" marker-end="url(#arrow-blue)"/>
+              <g class="flow-node final">
+                <rect x="695" y="28" width="195" height="88" rx="18"/>
+                <use href="#ic-target" class="flow-icon" transform="translate(779,44) scale(1.083)"/>
+                <text x="792" y="90" text-anchor="middle">89%</text><text x="792" y="109" text-anchor="middle">Accuracy</text>
+                <g class="step-badge"><circle cx="695" cy="28" r="13"/><text x="695" y="28">4</text></g>
+              </g>
             </svg>
-          </div>
-
-          <div class="card-media">
-            <div class="media-col-left">
-              <div class="placeholder ph-top"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Feature importance chart</span></div>
-              <div class="placeholder ph-bottom"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Confusion matrix</span></div>
-            </div>
-            <div class="placeholder ph-right"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Model results dashboard</span></div>
           </div>
         </div>
       </div>
 
       <!-- Card 05 : Particle Classification -->
       <div class="stack-card-holder">
-        <div class="stack-card" data-stack-card style="top:9.7rem">
+        <div class="stack-card" data-stack-card style="top:9.7rem; --card-color:#A855F7;">
           <div class="card-top">
             <div class="card-num">05</div>
             <div class="card-meta">
@@ -838,23 +907,35 @@ h1.hero-heading{
           </ul>
 
           <div class="flow">
-            <svg viewBox="0 0 900 120">
-              <g class="flow-node"><rect x="10" y="30" width="160" height="56" rx="14"/><text x="90" y="53" text-anchor="middle">Gamma</text><text x="90" y="69" text-anchor="middle">Dataset</text></g>
-              <line class="flow-line" x1="170" y1="58" x2="225" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="225" y="30" width="200" height="56" rx="14"/><text x="325" y="53" text-anchor="middle">Preprocessing &amp;</text><text x="325" y="69" text-anchor="middle">Class Balancing</text></g>
-              <line class="flow-line" x1="425" y1="58" x2="480" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="480" y="30" width="160" height="56" rx="14"/><text x="560" y="53" text-anchor="middle">Random</text><text x="560" y="69" text-anchor="middle">Forest</text></g>
-              <line class="flow-line" x1="640" y1="58" x2="695" y2="58" marker-end="url(#arrowhead)"/>
-              <g class="flow-node"><rect x="695" y="30" width="130" height="56" rx="14"/><text x="760" y="53" text-anchor="middle">91%</text><text x="760" y="69" text-anchor="middle">ROC-AUC</text></g>
+            <svg viewBox="0 0 900 145">
+              <g class="flow-node">
+                <rect x="10" y="28" width="180" height="88" rx="18"/>
+                <use href="#ic-atom" class="flow-icon" transform="translate(87,44) scale(1.083)"/>
+                <text x="100" y="90" text-anchor="middle">Gamma</text><text x="100" y="109" text-anchor="middle">Dataset</text>
+                <g class="step-badge"><circle cx="10" cy="28" r="13"/><text x="10" y="28">1</text></g>
+              </g>
+              <line class="flow-line" x1="190" y1="72" x2="225" y2="72" marker-end="url(#arrow-violet)"/>
+              <g class="flow-node">
+                <rect x="225" y="28" width="230" height="88" rx="18"/>
+                <use href="#ic-filter" class="flow-icon" transform="translate(327,44) scale(1.083)"/>
+                <text x="340" y="90" text-anchor="middle">Preprocessing &amp;</text><text x="340" y="109" text-anchor="middle">Class Balancing</text>
+                <g class="step-badge"><circle cx="225" cy="28" r="13"/><text x="225" y="28">2</text></g>
+              </g>
+              <line class="flow-line" x1="455" y1="72" x2="490" y2="72" marker-end="url(#arrow-violet)"/>
+              <g class="flow-node">
+                <rect x="490" y="28" width="180" height="88" rx="18"/>
+                <use href="#ic-branch" class="flow-icon" transform="translate(567,44) scale(1.083)"/>
+                <text x="580" y="90" text-anchor="middle">Random</text><text x="580" y="109" text-anchor="middle">Forest</text>
+                <g class="step-badge"><circle cx="490" cy="28" r="13"/><text x="490" y="28">3</text></g>
+              </g>
+              <line class="flow-line" x1="670" y1="72" x2="705" y2="72" marker-end="url(#arrow-violet)"/>
+              <g class="flow-node final">
+                <rect x="705" y="28" width="185" height="88" rx="18"/>
+                <use href="#ic-target" class="flow-icon" transform="translate(784,44) scale(1.083)"/>
+                <text x="797" y="90" text-anchor="middle">91%</text><text x="797" y="109" text-anchor="middle">ROC-AUC</text>
+                <g class="step-badge"><circle cx="705" cy="28" r="13"/><text x="705" y="28">4</text></g>
+              </g>
             </svg>
-          </div>
-
-          <div class="card-media">
-            <div class="media-col-left">
-              <div class="placeholder ph-top"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>ROC curve</span></div>
-              <div class="placeholder ph-bottom"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Feature importance plot</span></div>
-            </div>
-            <div class="placeholder ph-right"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-4 4-2-2-5 5"/></svg><span>Classification results</span></div>
           </div>
         </div>
       </div>
@@ -864,12 +945,11 @@ h1.hero-heading{
 
   <!-- ============ CONTACT ============ -->
   <section class="contact-section" id="contact">
-    <h2 class="hero-heading section-heading fade-in">Let&apos;s Talk</h2>
-    <p class="contact-lead fade-in" style="transition-delay:.1s">Open to AI/ML engineering, data science, and full-stack internship &amp; new-grad roles. I'd love to hear about what you're building.</p>
+    <h2 class="hero-heading section-heading fade-in">Let&apos;s Connect</h2>
     <div class="contact-actions fade-in" style="transition-delay:.2s">
       <a href="mailto:subhiksha.paulraj@gmail.com" class="contact-btn">Email Me</a>
       <a href="https://www.linkedin.com/in/subhiksha-paulraj" target="_blank" rel="noopener" class="live-btn">LinkedIn &#8599;</a>
-      <a href="tel:+16822476164" class="live-btn">+1 (682) 247-6164</a>
+      <a href="https://github.com/Subhikshapaulraj" target="_blank" rel="noopener" class="live-btn">GitHub &#8599;</a>
     </div>
     <div class="footer-bar">
       <div>subhiksha.paulraj@gmail.com</div>
